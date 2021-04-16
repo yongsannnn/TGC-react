@@ -49,7 +49,11 @@ function App() {
                             }} to="/login">Log In</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
-                            }} to="/">Log Out</Link>
+                            }} to="/" onClick={
+                                async () => {
+                                    localStorage.clear()
+                                }
+                            }>Log Out</Link>
                         </div>
                     </div>
                 </nav>
