@@ -5,6 +5,7 @@ import Login from "./pages/Login"
 import Education from "./pages/Education";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
+// import ProductContext from "./ProductContext"
 
 
 function App() {
@@ -29,20 +30,22 @@ function App() {
                         </div>
                     </div>
                 </nav>
-                <Switch>
-                    <Route exact path="/">
-                        <Landing/>
-                    </Route>
-                    <Route exact path="/products">
-                        <Product/>
-                    </Route>
-                    <Route exact path="/education">
-                        <Education/>
-                    </Route>
-                    <Route exact path="/login">
-                        <Login/>
-                    </Route>
-                </Switch>
+                <section style={{padding: "0rem 2rem"}}>
+                    <Switch>
+                        <Route exact path="/">
+                            <Landing/>
+                        </Route>
+                        <Route exact path="/products">
+                            <Product/>
+                        </Route>
+                        <Route exact path="/education">
+                            <Education/>
+                        </Route>
+                        <Route exact path="/login">
+                            <Login/>
+                        </Route>
+                    </Switch>
+                </section>
             </Router>
         </React.Fragment>
     );
