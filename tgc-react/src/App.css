@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.nav-route{
+    font-size: 10px;
+    padding: 1em 0;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    text-transform: uppercase;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

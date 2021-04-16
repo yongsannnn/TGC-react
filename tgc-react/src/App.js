@@ -6,6 +6,7 @@ import Education from "./pages/Education";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
 import LoginContext from "./LoginContext";
+import CreateAccount from "./CreateAccount";
 // import ProductContext from "./ProductContext"
 // import {useHistory} from "react-router-dom"
 
@@ -68,14 +69,18 @@ function App() {
                         <Route exact path="/education">
                             <Education />
                         </Route>
-                        <LoginContext.Provider value={context}>
-                            <Route exact path="/login">
+                        <Route exact path="/login">
+                            <LoginContext.Provider value={context}>
                                 <Login />
-                            </Route>
-                        </LoginContext.Provider>
+                            </LoginContext.Provider>
+                        </Route>
+                        <Route exact path="/register">
+                            <CreateAccount />
+                        </Route>
                     </Switch>
                 </section>
             </Router>
+
         </React.Fragment>
     );
 }
