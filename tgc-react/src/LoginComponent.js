@@ -31,6 +31,7 @@ export default function LoginComponent() {
                         localStorage.setItem("refreshToken", response.data.refreshToken)
                         console.log(localStorage)
                         context.changeLogin()
+                        context.changeUser(response.data.id)
                         history.push("/")
                     }
                 }>Log In</button>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios"
 import config from "./config"
 import { useHistory } from "react-router-dom"
+import LoginContext from "./LoginContext"
 
 const baseUrl = config.baseUrl
 
@@ -16,6 +17,7 @@ export default function CreateAccount() {
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
     const [isPasswordSame, setIsPasswordSame] = useState(false)
+    let context = useContext(LoginContext)
 
 
     return (
@@ -48,7 +50,8 @@ export default function CreateAccount() {
                             "contact_number": phone,
                             "date_of_birth": date
                         })
-                        if (response.data === "Ok"){
+                        if (response.data !== "Unable to create user"){
+                            context.setUserId(response.data.id)
                             history.goBack("/")
                         } else {
                             console.log(response.data)

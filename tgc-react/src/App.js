@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import Landing from "./pages/Landing";
 import LoginContext from "./LoginContext";
 import CreateAccount from "./CreateAccount";
+import EditAccount from "./EditAccount";
 // import ProductContext from "./ProductContext"
 // import {useHistory} from "react-router-dom"
 
@@ -14,12 +15,14 @@ import CreateAccount from "./CreateAccount";
 function App() {
     // const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false)
-
+    const [userId, setUserId] = useState(0)
     const context = {
         checkLogin: () => {
             return loggedIn
         },
-
+        changeUser: (id) => {
+            setUserId(id)
+        },
         changeLogin: () => {
             if (loggedIn === false) {
                 setLoggedIn(true)
@@ -50,9 +53,13 @@ function App() {
                             }} to="/login">Log In</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
+                            }} to={"edit/" + userId}>Edit Profile</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
                             }} to="/" onClick={
                                 async () => {
                                     localStorage.clear()
+                                    setLoggedIn(false)
                                 }
                             }>Log Out</Link>
                         </div>
@@ -75,7 +82,12 @@ function App() {
                             </LoginContext.Provider>
                         </Route>
                         <Route exact path="/register">
-                            <CreateAccount />
+                            <LoginContext.Provider value={context}>
+                                <CreateAccount />
+                            </LoginContext.Provider>
+                        </Route>
+                        <Route exact path="/edit/:user_id">
+                            <EditAccount />
                         </Route>
                     </Switch>
                 </section>
