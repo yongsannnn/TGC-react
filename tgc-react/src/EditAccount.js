@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react"
 import config from "./config"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams
-} from "react-router-dom";
+import {useParams} from "react-router-dom"
 
 const baseUrl = config.baseUrl
 export default function EditAccount() {
@@ -28,7 +23,6 @@ export default function EditAccount() {
     useEffect(() => {
         const fetch = async () => {
             const response = await axios.get(baseUrl + "/api/users/edit/" + user_id)
-            console.log(response.data)
             setName(response.data.name)
             setEmail(response.data.email)
             setAddress(response.data.address)
@@ -36,10 +30,10 @@ export default function EditAccount() {
             setDate(response.data.date_of_birth.slice(0, 10))
         }
         fetch()
+        // eslint-disable-next-line
     }, [])
     return (
         <React.Fragment>
-            {/* <p>Editing Account {id}</p> */}
             <p>Editing Account {user_id}</p>
 
             <div>
