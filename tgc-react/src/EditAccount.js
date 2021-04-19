@@ -23,23 +23,35 @@ export default function EditAccount() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [changeAddress, setChangeAddress] = useState(false)
     const [newAddress, setNewAddress] = useState("")
+    const [checkUser, setCheckUser] = useState(false)
+
     useEffect(() => {
-        const fetch = async () => {
-            const response = await axios.get(baseUrl + "/api/users/edit/" + user_id)
-            setName(response.data.name)
-            setEmail(response.data.email)
-            setAddress(response.data.address)
-            setPhone(response.data.contact_number)
-            setDate(response.data.date_of_birth.slice(0, 10))
+        // Check if user_id and local storage id is the same. If same then allow user to proceed looking at the page. 
+        if (user_id === localStorage.getItem("id")){
+            const fetch = async () => {
+                const response = await axios.get(baseUrl + "/api/users/edit/" + user_id)
+                setName(response.data.name)
+                setEmail(response.data.email)
+                setAddress(response.data.address)
+                setPhone(response.data.contact_number)
+                setDate(response.data.date_of_birth.slice(0, 10))
+                setIsLoaded(true)
+                setCheckUser(true)
+            }
+            fetch()
+        } else { 
             setIsLoaded(true)
         }
-        fetch()
         // eslint-disable-next-line
     }, [])
 
     if (isLoaded === false) {
         return (
             <div>Loading</div>
+        )
+    } else if (isLoaded === true && checkUser === false){
+        return (
+            <div>Unauthorised access</div> 
         )
     } else {
         return (
