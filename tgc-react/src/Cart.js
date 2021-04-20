@@ -90,7 +90,7 @@ export default function Cart() {
 
     }
 
-    const DeleteItem = async (e) => {
+    const deleteItem = async (e) => {
         let userId = localStorage.getItem("id")
         let response = await axios.get(`${baseUrl}/api/cart/${userId}/${e.target.name}/remove`)
         console.log(response)
@@ -104,6 +104,7 @@ export default function Cart() {
         setCartItem(cloned)
 
     }
+
 
     if (isLoaded === false) {
         return (
@@ -130,12 +131,12 @@ export default function Cart() {
                                 <p>{p.quantity}</p>
                                 <button onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
                                 <button onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
-                                <button onClick={DeleteItem} name={p.tea.id}>Delete</button>
+                                <button onClick={deleteItem} name={p.tea.id}>Delete</button>
                             </div>
                         </div>)
                 }
                 <p> Total Cost: ${(totalCost / 100).toFixed(2)} </p>
-                {/* <button onClick={checkout}>Checkout</button> */}
+                <a href={"https://3000-blue-cicada-r1im72vl.ws-us03.gitpod.io/api/checkout/"+ localStorage.getItem("id")}>Checkout</a>
             </React.Fragment>
         )
     }
