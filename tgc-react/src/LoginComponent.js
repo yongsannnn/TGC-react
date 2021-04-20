@@ -33,7 +33,7 @@ export default function LoginComponent() {
                         console.log(localStorage)
                         context.changeLogin()
                         context.changeUser(response.data.id)
-                        history.push("/")
+                        history.goBack("/")
                     }
                 }>Log In</button>
             </div>

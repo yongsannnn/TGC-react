@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
 import config from "./config"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 
 export default function IndividualProduct() {
     let { tea_id } = useParams();
+    const history = useHistory();
+
     const [isLoaded, setIsLoaded] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -57,13 +59,29 @@ export default function IndividualProduct() {
                 <p>{steepTime}</p>
                 <p>{serving}</p>
                 <p>{stock}</p>
-                <p class="img-container" style={{
+                <p className="img-container" style={{
                     backgroundImage: `url(${image})`
                 }}></p>
                 <p>{brand}</p>
                 <p>{packing}</p>
                 <p>{origin}</p>
                 <p>{type}</p>
+
+                <button onClick={
+                    async () => {
+                        // check if user is logged in
+                        if (localStorage.getItem("id") !== null) {
+                            // If user is logged in, push item into his cart
+                                let user_id = localStorage.getItem("id")
+                                let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
+                                console.log(response)
+                        } else {
+                            // if user is not logged in, send him to login page first. 
+                            history.push("/login")
+
+                        }
+                    }
+                }>Add To Cart</button>
             </React.Fragment>
         )
     }
