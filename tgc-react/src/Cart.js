@@ -23,11 +23,11 @@ export default function Cart() {
                 let response = await axios.get(baseUrl + "/api/cart/" + localStorage.getItem("id"))
                 if (response.data !== "Unable to get all items.") {
                     setCartItem(response.data)
-                    let subTotal = 0;
-                    for (let i of response.data) {
-                        subTotal += (i.tea.cost * i.quantity)
-                    }
-                    setTotalCost(subTotal)
+                    // let subTotal = 0;
+                    // for (let i of response.data) {
+                    //     subTotal += (i.tea.cost * i.quantity)
+                    // }
+                    // setTotalCost(subTotal)
                     setisLoaded(true)
                 } else {
                     // Unable to load cart, please refresh page or relogin. 
@@ -42,15 +42,22 @@ export default function Cart() {
         // eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+        let subTotal = 0;
+        for (let i of cartItem) {
+            subTotal += (i.tea.cost * i.quantity)
+        }
+        setTotalCost(subTotal)
+    }, [cartItem])
 
     const decrementQty = async (e) => {
         // Get index
-        const teaId = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
+        const teaIndex = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
         // Clone state
         let cloned = [...cartItem]
         // Replace the data
-        if (cloned[teaId].quantity > 1) {
-            cloned[teaId].quantity -= 1;
+        if (cloned[teaIndex].quantity > 1) {
+            cloned[teaIndex].quantity -= 1;
         } else {
             // nothing happen, qty already 1 
         }
@@ -59,19 +66,19 @@ export default function Cart() {
     }
 
     const incrementQty = async (e) => {
-        const teaId = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
+        const teaIndex = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
         let cloned = [...cartItem]
-        cloned[teaId].quantity += 1
+        cloned[teaIndex].quantity += 1
         setCartItem(cloned)
     }
 
-    const showTotalCost = () => {
-        let subTotal = 0;
-        for (let i of cartItem) {
-            subTotal += (i.tea.cost * i.quantity)
-        }
-        setTotalCost(subTotal)
-    } 
+    // const showTotalCost = () => {
+    //     let subTotal = 0;
+    //     for (let i of cartItem) {
+    //         subTotal += (i.tea.cost * i.quantity)
+    //     }
+    //     setTotalCost(subTotal)
+    // }
 
     const updateQty = async (e) => {
         let userId = localStorage.getItem("id")
@@ -79,7 +86,22 @@ export default function Cart() {
             "quantity": e.target.value
         })
         console.log(response)
-        showTotalCost()
+        // showTotalCost()
+
+    }
+
+    const DeleteItem = async (e) => {
+        let userId = localStorage.getItem("id")
+        let response = await axios.get(`${baseUrl}/api/cart/${userId}/${e.target.name}/remove`)
+        console.log(response)
+        // Get index
+        const teaIndex = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
+        // Clone state
+        let cloned = [...cartItem]
+        // Remove the tea item using splice
+        cloned.splice(teaIndex, 1)
+
+        setCartItem(cloned)
 
     }
 
@@ -108,11 +130,12 @@ export default function Cart() {
                                 <p>{p.quantity}</p>
                                 <button onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
                                 <button onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
-                                <button>Delete</button>
+                                <button onClick={DeleteItem} name={p.tea.id}>Delete</button>
                             </div>
                         </div>)
                 }
                 <p> Total Cost: ${(totalCost / 100).toFixed(2)} </p>
+                {/* <button onClick={checkout}>Checkout</button> */}
             </React.Fragment>
         )
     }
