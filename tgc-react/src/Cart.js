@@ -22,12 +22,12 @@ export default function Cart() {
             const fetch = async () => {
                 let response = await axios.get(baseUrl + "/api/cart/" + localStorage.getItem("id"))
                 if (response.data !== "Unable to get all items.") {
+                    setCartItem(response.data)
                     let subTotal = 0;
                     for (let i of response.data) {
                         subTotal += (i.tea.cost * i.quantity)
                     }
                     setTotalCost(subTotal)
-                    setCartItem(response.data)
                     setisLoaded(true)
                 } else {
                     // Unable to load cart, please refresh page or relogin. 
@@ -36,12 +36,52 @@ export default function Cart() {
             }
             fetch()
         } else {
-            console.log(isLoaded)
             setisLoaded(true)
             // If not logged in, change is loaded true and send him to user login page
         }
         // eslint-disable-next-line
     }, [])
+
+
+    const decrementQty = async (e) => {
+        // Get index
+        const teaId = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
+        // Clone state
+        let cloned = [...cartItem]
+        // Replace the data
+        if (cloned[teaId].quantity > 1) {
+            cloned[teaId].quantity -= 1;
+        } else {
+            // nothing happen, qty already 1 
+        }
+        // Set back the state
+        setCartItem(cloned)
+    }
+
+    const incrementQty = async (e) => {
+        const teaId = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
+        let cloned = [...cartItem]
+        cloned[teaId].quantity += 1
+        setCartItem(cloned)
+    }
+
+    const showTotalCost = () => {
+        let subTotal = 0;
+        for (let i of cartItem) {
+            subTotal += (i.tea.cost * i.quantity)
+        }
+        setTotalCost(subTotal)
+    } 
+
+    const updateQty = async (e) => {
+        let userId = localStorage.getItem("id")
+        let response = await axios.post(`${baseUrl}/api/cart/${userId}/${e.target.name}/update`, {
+            "quantity": e.target.value
+        })
+        console.log(response)
+        showTotalCost()
+
+    }
 
     if (isLoaded === false) {
         return (
@@ -64,7 +104,11 @@ export default function Cart() {
                             <div className="col-6">
                                 <p>{p.tea.name}</p>
                                 <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
-                                <p>Quantity: {p.quantity}</p>
+                                <button onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
+                                <p>{p.quantity}</p>
+                                <button onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
+                                <button onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
+                                <button>Delete</button>
                             </div>
                         </div>)
                 }
