@@ -10,7 +10,7 @@ import LoginContext from "./LoginContext";
 import CreateAccount from "./CreateAccount";
 import EditAccount from "./EditAccount";
 import IndividualProduct from "./IndividualProduct"
-
+import Cart from "./Cart"
 // import ProductContext from "./ProductContext"
 // import {useHistory} from "react-router-dom"
 
@@ -54,9 +54,12 @@ function App() {
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === false ? "block" : "none"
                             }} to="/login">Log In</Link>
+                             <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/cart"}>Cart</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
-                            }} to={"edit/" + userId}>Edit Profile</Link>
+                            }} to={"/edit/" + userId}>Edit</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
                             }} to="/" onClick={
@@ -95,6 +98,9 @@ function App() {
                         <Route exact path="/products/:tea_id">
                             <IndividualProduct />
                         </Route>
+                        <Route exact patch="/cart">
+                            <Cart/>
+                        </Route> 
                     </Switch>
                 </section>
             </Router>
