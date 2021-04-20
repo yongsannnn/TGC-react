@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { useState } from "react"
 import Login from "./pages/Login"
@@ -8,6 +9,8 @@ import Landing from "./pages/Landing";
 import LoginContext from "./LoginContext";
 import CreateAccount from "./CreateAccount";
 import EditAccount from "./EditAccount";
+import IndividualProduct from "./IndividualProduct"
+
 // import ProductContext from "./ProductContext"
 // import {useHistory} from "react-router-dom"
 
@@ -88,6 +91,9 @@ function App() {
                         </Route>
                         <Route exact path="/edit/:user_id">
                             <EditAccount />
+                        </Route>
+                        <Route exact path="/products/:tea_id">
+                            <IndividualProduct />
                         </Route>
                     </Switch>
                 </section>

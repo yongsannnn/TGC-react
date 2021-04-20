@@ -36,6 +36,14 @@
     text-transform: uppercase;
 }
 
+.img-container{
+  height: 450px;
+  width: 450px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
