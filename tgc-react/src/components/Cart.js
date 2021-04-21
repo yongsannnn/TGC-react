@@ -9,7 +9,7 @@ const baseUrl = config.baseUrl
 export default function Cart() {
     const history = useHistory();
 
-    const [isLoaded, setisLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [cartItem, setCartItem] = useState([])
     const [totalCost, setTotalCost] = useState(0)
@@ -28,7 +28,7 @@ export default function Cart() {
                     //     subTotal += (i.tea.cost * i.quantity)
                     // }
                     // setTotalCost(subTotal)
-                    setisLoaded(true)
+                    setIsLoaded(true)
                 } else {
                     // Unable to load cart, please refresh page or relogin. 
 
@@ -36,7 +36,7 @@ export default function Cart() {
             }
             fetch()
         } else {
-            setisLoaded(true)
+            setIsLoaded(true)
             // If not logged in, change is loaded true and send him to user login page
         }
         // eslint-disable-next-line

@@ -11,6 +11,7 @@ import CreateAccount from "./components/CreateAccount";
 import EditAccount from "./components/EditAccount";
 import IndividualProduct from "./components/IndividualProduct"
 import Cart from "./components/Cart"
+import Order from "./components/Order" 
 import config from "./config"
 import axios from "axios";
 
@@ -32,8 +33,9 @@ function App() {
                 }
             }
             )
+            setUserId(response.data.id)
             // Check if the id stored and returning access token is the same person
-            if (response.data.id === parseInt(localStorage.getItem("id"))){
+            if (userId === parseInt(localStorage.getItem("id"))){
                 // If valid, set user loggedIn to true
                 setLoggedIn(true)
             } 
@@ -77,12 +79,15 @@ function App() {
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === false ? "block" : "none"
                             }} to="/login">Log In</Link>
-                             <Link className="nav-item nav-link ml-auto" style={{
-                                display: loggedIn === true ? "block" : "none"
-                            }} to={"/cart"}>Cart</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
-                            }} to={"/edit/" + userId}>Edit</Link>
+                            }} to={"/cart"}>Cart</Link>
+                             <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/order"}>Orders</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/edit/"}>Edit</Link>
                             <Link className="nav-item nav-link ml-auto" style={{
                                 display: loggedIn === true ? "block" : "none"
                             }} to="/" onClick={
@@ -115,14 +120,17 @@ function App() {
                                 <CreateAccount />
                             </LoginContext.Provider>
                         </Route>
-                        <Route exact path="/edit/:user_id">
+                        <Route exact path="/edit">
                             <EditAccount />
                         </Route>
                         <Route exact path="/products/:tea_id">
                             <IndividualProduct />
                         </Route>
-                        <Route exact patch="/cart">
+                        <Route exact path="/cart">
                             <Cart/>
+                        </Route> 
+                        <Route exact path="/order">
+                            <Order />
                         </Route> 
                     </Switch>
                 </section>

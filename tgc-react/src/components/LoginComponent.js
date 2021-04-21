@@ -30,7 +30,6 @@ export default function LoginComponent() {
                         localStorage.setItem("accessToken", response.data.accessToken)
                         localStorage.setItem("refreshToken", response.data.refreshToken)
                         localStorage.setItem("id", response.data.id)
-                        console.log(localStorage)
                         context.changeLogin()
                         context.changeUser(response.data.id)
                         history.goBack("/")

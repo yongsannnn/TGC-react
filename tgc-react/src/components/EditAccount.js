@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react"
 import config from "../config"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
-import { useParams } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 export default function EditAccount() {
-    // let match = useRouteMatch("/edit/:user_id")
-    // let id = match.params.user_id
-    // console.log(match)
-    let { user_id } = useParams();
+    const user_id = localStorage.getItem("id")
     const history = useHistory();
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -27,7 +23,7 @@ export default function EditAccount() {
 
     useEffect(() => {
         // Check if user_id and local storage id is the same. If same then allow user to proceed looking at the page. 
-        if (user_id === localStorage.getItem("id")){
+        if (user_id){
             const fetch = async () => {
                 const response = await axios.get(baseUrl + "/api/users/edit/" + user_id)
                 setName(response.data.name)
