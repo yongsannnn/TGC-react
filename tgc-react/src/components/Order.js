@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import config from "../config"
 import axios from "axios"
+import { Link } from "react-router-dom"
+
 
 const baseUrl = config.baseUrl
 export default function Order() {
@@ -19,13 +21,34 @@ export default function Order() {
                 } else {
                     //No order is retrieved, user has no order. 
                 }
-                setIsLoaded(true)
             }
             fetch()
+            setIsLoaded(true)
         } else {
             setIsLoaded(true)
         }
     }, [])
+
+    const displayOrders = () => {
+        let lst = []
+        for (let o of orderList) {
+            lst.push(
+                <div key={o.id}>
+                    <p>{o.id}</p>
+                    <p>{o.status.name}</p>
+                    <p>Order placed on: {o.date_of_order.slice(0, 10)}</p>
+                    <Link to={"/order/" + o.id}>Manage</Link>
+
+                </div>
+            )
+        }
+        if (lst.length === 0) {
+            lst.push(
+                <div>No orders to display.</div>
+            )
+        }
+        return lst
+    }
 
     if (isLoaded === false) {
         return (
@@ -35,6 +58,7 @@ export default function Order() {
         return (
             <React.Fragment>
                 <p>Order </p>
+                {displayOrders()}
             </React.Fragment>
         )
     }

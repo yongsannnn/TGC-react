@@ -12,6 +12,7 @@ import EditAccount from "./components/EditAccount";
 import IndividualProduct from "./components/IndividualProduct"
 import Cart from "./components/Cart"
 import Order from "./components/Order" 
+import IndividualOrder from "./components/IndividualOrder"
 import config from "./config"
 import axios from "axios";
 
@@ -131,6 +132,9 @@ function App() {
                         </Route> 
                         <Route exact path="/order">
                             <Order />
+                        </Route> 
+                        <Route exact path="/order/:order_id">
+                            <IndividualOrder />
                         </Route> 
                     </Switch>
                 </section>
