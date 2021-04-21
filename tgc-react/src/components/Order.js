@@ -15,7 +15,7 @@ export default function Order() {
             const userId = localStorage.getItem("id")
             const fetch = async () => {
                 // Retrieve all orders for this user
-                let response = await axios.get(baseUrl + "/api/orders/" + userId)
+                let response = await axios.get(baseUrl + "/api/orders/all/" + userId)
                 if (response.data !== "No Orders") {
                     setOrderList(response.data.reverse())
                 } else {

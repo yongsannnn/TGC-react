@@ -11,5 +11,12 @@
   width: 450px;
   /* border-radius: 20px; */
   background-size: cover;
-  background-position: center
+  background-position: center;
+}
+
+.product-img-container{
+    height: 300px;
+    width: 300px;
+    background-size: cover;
+    background-position: center;
 }
