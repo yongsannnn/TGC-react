@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { useState } from "react"
-import Login from "./components/Login"
+import LoginComponent from "./components/LoginComponent";
 import Education from "./components/Education";
 import Product from "./components/Product";
 import Landing from "./components/Landing";
@@ -13,6 +13,7 @@ import IndividualProduct from "./components/IndividualProduct"
 import Cart from "./components/Cart"
 import Order from "./components/Order" 
 import IndividualOrder from "./components/IndividualOrder"
+import Footer from "./components/Footer"
 import config from "./config"
 import axios from "axios";
 
@@ -100,7 +101,8 @@ function App() {
                         </div>
                     </div>
                 </nav>
-                <section style={{ padding: "0rem 2rem" }}>
+                <section style={{ padding: "0rem 2rem",
+            minHeight: "80vh" }}>
                     <Switch>
                         <Route exact path="/">
                             <Landing />
@@ -113,7 +115,7 @@ function App() {
                         </Route>
                         <Route exact path="/login">
                             <LoginContext.Provider value={context}>
-                                <Login />
+                                <LoginComponent />
                             </LoginContext.Provider>
                         </Route>
                         <Route exact path="/register">
@@ -139,7 +141,7 @@ function App() {
                     </Switch>
                 </section>
             </Router>
-
+            <Footer/>
         </React.Fragment>
     );
 }

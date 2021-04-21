@@ -16,28 +16,38 @@ export default function LoginComponent() {
 
     return (
         <React.Fragment>
-            <div>
-                <label>Email</label>
-                <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                <label>Password</label>
-                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                <button onClick={
-                    async () => {
-                        const response = await axios.post(baseUrl + "/api/users/login", {
-                            "email": email,
-                            "password": password
-                        })
-                        localStorage.setItem("accessToken", response.data.accessToken)
-                        localStorage.setItem("refreshToken", response.data.refreshToken)
-                        localStorage.setItem("id", response.data.id)
-                        context.changeLogin()
-                        context.changeUser(response.data.id)
-                        history.goBack("/")
-                    }
-                }>Log In</button>
-            </div>
-            <div>
-                <Link to="/register">Register</Link>
+            <div className="page-width">
+                <div className="login-wrapper">
+                    <div>
+                        <h1>
+                            Log In
+                         </h1>
+                        <div>
+                            <input className="login-input" type="text" name="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}></input>
+                            <input className="login-input" type="password" name="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
+                            
+                            <div className="login-btn-wrapper">
+                                <button className="cta" onClick={
+                                    async () => {
+                                        const response = await axios.post(baseUrl + "/api/users/login", {
+                                            "email": email,
+                                            "password": password
+                                        })
+                                        localStorage.setItem("accessToken", response.data.accessToken)
+                                        localStorage.setItem("refreshToken", response.data.refreshToken)
+                                        localStorage.setItem("id", response.data.id)
+                                        context.changeLogin()
+                                        context.changeUser(response.data.id)
+                                        history.goBack("/")
+                                    }
+                                }>Sign In</button>
+                            </div>
+                        </div>
+                        <div>
+                            <Link className="create-acc" to="/register">Create account</Link>
+                        </div>
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     );

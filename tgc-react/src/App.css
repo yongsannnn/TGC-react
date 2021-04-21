@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lato&display=swap');
+
+#root{
+    font-family: 'Lato', sans-serif;
+}
+
+h1{
+    font-family: 'Cormorant Garamond', serif;
+}
+
 .nav-route{
     font-size: 10px;
     padding: 1em 0;
@@ -5,7 +15,59 @@
     border-bottom: 1px solid #dbdbdb;
     text-transform: uppercase;
 }
+.page-width{
+    display:flex;
+    margin: auto;
+    padding: 2em;
+    max-width: 1040px;
+}
 
+.login-wrapper{
+    padding: 2em;
+    max-width: 600px;
+    margin: 3em auto;
+    border: 1px solid #dbdbdb
+}
+
+.login-input{
+    padding: 0.5em;
+    width: 100%;
+    margin-bottom: 1em;
+    letter-spacing: 3px;
+    border: 1px solid #dbdbdb;
+}
+
+.cta{
+    border: 1px solid #d6954b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #777777;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    transition: .2s ease;
+    background:transparent;
+    height:40px;
+}
+
+.cta:hover{
+    color: #d6954b;
+    text-decoration: none;
+}
+
+.login-btn-wrapper{
+    display:flex;
+    justify-content: center;
+}
+
+.create-acc{
+    color:#d6954b;
+    text-decoration: underline;
+}
+
+.create-acc:hover{
+    text-decoration:none;
+    color:#777777;
+}
 .img-container{
   height: 450px;
   width: 450px;
