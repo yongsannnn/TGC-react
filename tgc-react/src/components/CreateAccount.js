@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios"
-import config from "./config"
+import config from "../config"
 import { useHistory } from "react-router-dom"
 import LoginContext from "./LoginContext"
 

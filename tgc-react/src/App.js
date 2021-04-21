@@ -2,15 +2,15 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { useState } from "react"
-import Login from "./pages/Login"
-import Education from "./pages/Education";
-import Product from "./pages/Product";
-import Landing from "./pages/Landing";
-import LoginContext from "./LoginContext";
-import CreateAccount from "./CreateAccount";
-import EditAccount from "./EditAccount";
-import IndividualProduct from "./IndividualProduct"
-import Cart from "./Cart"
+import Login from "./components/Login"
+import Education from "./components/Education";
+import Product from "./components/Product";
+import Landing from "./components/Landing";
+import LoginContext from "./components/LoginContext";
+import CreateAccount from "./components/CreateAccount";
+import EditAccount from "./components/EditAccount";
+import IndividualProduct from "./components/IndividualProduct"
+import Cart from "./components/Cart"
 // import ProductContext from "./ProductContext"
 // import {useHistory} from "react-router-dom"
 

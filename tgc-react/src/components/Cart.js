@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import config from "./config"
+import config from "../config"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 
