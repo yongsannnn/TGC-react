@@ -11,14 +11,36 @@ import CreateAccount from "./components/CreateAccount";
 import EditAccount from "./components/EditAccount";
 import IndividualProduct from "./components/IndividualProduct"
 import Cart from "./components/Cart"
-// import ProductContext from "./ProductContext"
-// import {useHistory} from "react-router-dom"
+import config from "./config"
+import axios from "axios";
 
+const baseUrl = config.baseUrl
 
 function App() {
-    // const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false)
     const [userId, setUserId] = useState(0)
+
+    // Check if there is token in local storage
+    const isToken = localStorage.getItem("accessToken")
+    if (isToken){
+    const checkToken = async () => {
+            // If token is there, check if still valid. 
+            const response = await axios.get(baseUrl + "/api/users/profile", 
+            {
+                headers: {
+                    authorization: "Bearer " + isToken
+                }
+            }
+            )
+            // Check if the id stored and returning access token is the same person
+            if (response.data.id === parseInt(localStorage.getItem("id"))){
+                // If valid, set user loggedIn to true
+                setLoggedIn(true)
+            } 
+            // Else loggedIn is already false
+        }
+    checkToken()
+    }
     const context = {
         checkLogin: () => {
             return loggedIn
@@ -34,6 +56,7 @@ function App() {
             }
         }
     }
+
     return (
         <React.Fragment>
             <Router>
