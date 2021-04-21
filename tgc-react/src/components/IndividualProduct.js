@@ -22,6 +22,7 @@ export default function IndividualProduct() {
     const [packing, setPacking] = useState("")
     const [origin, setOrigin] = useState("")
     const [type, setType] = useState("")
+    const [noti, setNoti] = useState(false)
 
     useEffect(() => {
         const fetch = async () => {
@@ -66,22 +67,29 @@ export default function IndividualProduct() {
                 <p>{packing}</p>
                 <p>{origin}</p>
                 <p>{type}</p>
-
+                <p style={{
+                    display: noti === true ? "block" : "none"
+                }}>Item has been added to your cart</p>
                 <button onClick={
                     async () => {
                         // check if user is logged in
                         if (localStorage.getItem("id") !== null) {
                             // If user is logged in, push item into his cart
-                                let user_id = localStorage.getItem("id")
-                                let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
-                                console.log(response)
+                            let user_id = localStorage.getItem("id")
+                            let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
+                            console.log(response)
                         } else {
                             // if user is not logged in, send him to login page first. 
                             history.push("/login")
 
                         }
+                        setNoti(true)
+                        setTimeout(()=> {
+                            setNoti(false)
+                        }, 2000)
                     }
                 }>Add To Cart</button>
+
             </React.Fragment>
         )
     }
