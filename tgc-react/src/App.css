@@ -59,6 +59,12 @@ h1{
     justify-content: center;
 }
 
+.warning-text{
+    color:red;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
 .create-acc{
     color:#d6954b;
     text-decoration: underline;

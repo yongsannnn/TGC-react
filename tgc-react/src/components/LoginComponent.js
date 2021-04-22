@@ -11,6 +11,7 @@ export default function LoginComponent() {
     const history = useHistory();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loginError, setLoginError] = useState(false)
     let context = useContext(LoginContext)
 
 
@@ -25,7 +26,9 @@ export default function LoginComponent() {
                         <div>
                             <input className="login-input" type="text" name="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}></input>
                             <input className="login-input" type="password" name="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
-                            
+                            <p className="warning-text" style={{
+                                display: loginError === true ? "block" : "none"
+                            }}>*Invalid credentials. Please try again.</p>
                             <div className="login-btn-wrapper">
                                 <button className="cta" onClick={
                                     async () => {
@@ -33,12 +36,16 @@ export default function LoginComponent() {
                                             "email": email,
                                             "password": password
                                         })
-                                        localStorage.setItem("accessToken", response.data.accessToken)
-                                        localStorage.setItem("refreshToken", response.data.refreshToken)
-                                        localStorage.setItem("id", response.data.id)
-                                        context.changeLogin()
-                                        context.changeUser(response.data.id)
-                                        history.goBack("/")
+                                        if (response.status === 200){
+                                            localStorage.setItem("accessToken", response.data.accessToken)
+                                            localStorage.setItem("refreshToken", response.data.refreshToken)
+                                            localStorage.setItem("id", response.data.id)
+                                            context.changeLogin()
+                                            context.changeUser(response.data.id)
+                                            history.goBack("/")
+                                        } else if (response.status === 204) {
+                                            setLoginError(true)
+                                        }
                                     }
                                 }>Sign In</button>
                             </div>
