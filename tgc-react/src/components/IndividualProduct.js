@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import config from "../config"
 import axios from "axios"
 import { useParams, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 
@@ -22,6 +23,7 @@ export default function IndividualProduct() {
     const [packing, setPacking] = useState("")
     const [origin, setOrigin] = useState("")
     const [type, setType] = useState("")
+    const [flavour, setFlavour] = useState([])
     const [noti, setNoti] = useState(false)
 
     useEffect(() => {
@@ -39,6 +41,7 @@ export default function IndividualProduct() {
             setPacking(response.data.package.name)
             setOrigin(response.data.origin.name)
             setType(response.data.type.name)
+            setFlavour(response.data.flavour)
             setIsLoaded(true)
         }
         fetch()
@@ -52,43 +55,57 @@ export default function IndividualProduct() {
     } else {
         return (
             <React.Fragment>
-                <p>Individual Items</p>
-                <p>{name}</p>
-                <p>{description}</p>
-                <p>${cost.toFixed(2)}</p>
-                <p>{waterTemp}</p>
-                <p>{steepTime}</p>
-                <p>{serving}</p>
-                <p>{stock}</p>
-                <p className="img-container" style={{
-                    backgroundImage: `url(${image})`
-                }}></p>
-                <p>{brand}</p>
-                <p>{packing}</p>
-                <p>{origin}</p>
-                <p>{type}</p>
-                <p style={{
-                    display: noti === true ? "block" : "none"
-                }}>Item has been added to your cart</p>
-                <button onClick={
-                    async () => {
-                        // check if user is logged in
-                        if (localStorage.getItem("id") !== null) {
-                            // If user is logged in, push item into his cart
-                            let user_id = localStorage.getItem("id")
-                            let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
-                            console.log(response)
-                        } else {
-                            // if user is not logged in, send him to login page first. 
-                            history.push("/login")
+                <div class="mt-2 mb-4 nav-route">
+                    <Link className="nav-link-tag" to="/">HOME</Link>
+                     /
+                    <Link className="nav-link-tag" to="/products">PRODUCTS</Link>
+                     / {name}
+                </div>
 
-                        }
-                        setNoti(true)
-                        setTimeout(()=> {
-                            setNoti(false)
-                        }, 2000)
-                    }
-                }>Add To Cart</button>
+                <div className="row">
+                    <div className="col-6">
+                        <p className="indi-img-container" style={{
+                            backgroundImage: `url(${image})`
+                        }}></p>
+                    </div>
+                    <div className="col-6">
+                        <h1 className="mb-4 indi-title">{name}</h1>
+                    <p className="indi-flavour">TASTING NOTE: {flavour.map(p=>p.name).join(", ")}</p> 
+                        <p>{description}</p>
+                        <p>${cost.toFixed(2)}</p>
+                        <p>{waterTemp}</p>
+                        <p>{steepTime}</p>
+                        <p>{serving}</p>
+                        <p>{stock}</p>
+                        <p>{brand}</p>
+                        <p>{packing}</p>
+                        <p>{origin}</p>
+                        <p>{type}</p>
+                        <p style={{
+                            display: noti === true ? "block" : "none"
+                        }}>Item has been added to your cart</p>
+                        <button onClick={
+                            async () => {
+                                // check if user is logged in
+                                if (localStorage.getItem("id") !== null) {
+                                    // If user is logged in, push item into his cart
+                                    let user_id = localStorage.getItem("id")
+                                    let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
+                                    console.log(response)
+                                } else {
+                                    // if user is not logged in, send him to login page first. 
+                                    history.push("/login")
+
+                                }
+                                setNoti(true)
+                                setTimeout(() => {
+                                    setNoti(false)
+                                }, 2000)
+                            }
+                        }>Add To Cart</button>
+
+                    </div>
+                </div>
 
             </React.Fragment>
         )
