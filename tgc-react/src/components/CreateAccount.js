@@ -16,50 +16,105 @@ export default function CreateAccount() {
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
     const [isPasswordSame, setIsPasswordSame] = useState(false)
+    const [isNameLong, setIsNameLong] = useState(false)
+    const [isEmailFormat, setIsEmailFormat] = useState(false)
+    const [isDOBEmpty, setIsDOBEmpty] = useState(false)
+    const [isPhoneEmpty, setIsPhoneEmpty] = useState(false)
+    const [addressLength, setAddressLength] = useState(false)
+    const [registerError, setRegisterError] = useState(false)
     let context = useContext(LoginContext)
 
+    function validateEmail(email) {
+        let reg = /\S+@\S+\.\S+/;
+        return reg.test(email);
+
+    }
 
     return (
         <React.Fragment>
-            <h4>Create Account</h4>
-            <div>
-                <input type="text" placeholder="Name" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
-                <input type="text" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                <input type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
-                <input type="date" placeholder="Date of Birth" name="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
-                <input type="number" placeholder="Phone Number" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
-                <input type="text" placeholder="Address" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+            <div className="page-width">
+                <div className="login-wrapper">
+                    <h1>Create Account</h1>
+                    <div>
+                        <input type="text" className="login-input" placeholder="Name" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                        <input type="text" className="login-input" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <input type="password" className="login-input" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <input type="password" className="login-input" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
+                        <input type="date" className="login-input" placeholder="Date of Birth" name="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
+                        <input type="number" className="login-input" placeholder="Phone Number" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
+                        <input type="text" className="login-input" placeholder="Address" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                    </div>
+                    <p className="warning-text" style={{ display: isNameLong === true ? "block" : "none" }}>*Name is too long. Length must be shorter than 45 characters. </p>
+                    <p className="warning-text" style={{ display: isEmailFormat === true ? "block" : "none" }}>*Invalid Email format.</p>
+                    <p className="warning-text" style={{ display: isPasswordSame === true ? "block" : "none" }}>*Password does not match. </p>
+                    <p className="warning-text" style={{ display: isDOBEmpty === true ? "block" : "none" }}>*Date Of Birth is empty. </p>
+                    <p className="warning-text" style={{ display: isPhoneEmpty === true ? "block" : "none" }}>*Phone Number is empty. </p>
+                    <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address is too long. Length must be shorter than 255 characters. </p>
+
+
+
+                    <div className="login-btn-wrapper">
+                        <button className="cta" onClick={
+                            async () => {
+                                // Validation on react using flag and conditional rendering for error sentences
+                                if (name.length > 45) {
+                                    setIsNameLong(true)
+                                } else {
+                                    setIsNameLong(false)
+                                }
+                                if (validateEmail(email) === false) {
+                                    setIsEmailFormat(true)
+                                } else {
+                                    setIsEmailFormat(false)
+                                }
+                                if (password !== confirmPassword) {
+                                    setIsPasswordSame(true)
+                                } else {
+                                    setIsPasswordSame(false)
+                                }
+
+                                if (!date) {
+                                    setIsDOBEmpty(true)
+                                } else {
+                                    setIsDOBEmpty(false)
+                                }
+
+                                if (!phone) {
+                                    setIsPhoneEmpty(true)
+                                } else {
+                                    setIsPhoneEmpty(false)
+                                }
+                                if (address.length > 255) {
+                                    setAddressLength(true)
+                                } else {
+                                    setAddressLength(false)
+                                }
+
+                                 if (isNameLong === false && isEmailFormat === false && isPasswordSame === false && isDOBEmpty === false && isPhoneEmpty === false && addressLength === false) {
+                                    // Send data to url when all flag is false
+                                    const response = await axios.post(baseUrl + "/api/users/register", {
+                                        "name": name,
+                                        "email": email,
+                                        "password": password,
+                                        "address": address,
+                                        "contact_number": phone,
+                                        "date_of_birth": date
+                                    })
+                                    if (response.data !== "Unable to create user") {
+                                        history.goBack("/")
+                                    } else {
+                                        setRegisterError(true)
+                                        console.log(response.data)
+                                    }
+                                }
+                            }
+                        }>Submit</button>
+
+                    </div>
+                    <p className="warning-text" style={{ display: registerError === true ? "block" : "none" }}>*Unable to create account. Check error messages or try again later. </p>
+                </div>
+
             </div>
-            <p style={{ display: isPasswordSame === true ? "block" : "none" }}>Password is not the same!! </p>
-            <button onClick={
-                async () => {
-                    // Validation on react can use flag and conditional rendering for error sentences
-
-                    // Check if confirm password and password is the same 
-                    if (password !== confirmPassword) {
-                        setIsPasswordSame(true)
-                    } else {
-                        // Send data to url
-                        const response = await axios.post(baseUrl + "/api/users/register", {
-                            "name": name,
-                            "email": email,
-                            "password": password,
-                            "address": address,
-                            "contact_number": phone,
-                            "date_of_birth": date
-                        })
-                        if (response.data !== "Unable to create user"){
-                            context.setUserId(response.data.id)
-                            history.goBack("/")
-                        } else {
-                            console.log(response.data)
-                        }
-
-                    }
-
-                }
-            }>Submit</button>
         </React.Fragment>
     );
 }

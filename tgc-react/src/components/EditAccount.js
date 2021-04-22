@@ -129,7 +129,7 @@ export default function EditAccount() {
                                 display: changeAddress === true ? "block" : "none"
                             }}>
                                 <input className="login-input" type="text" placeholder="New Address" name="newAddress" onChange={(e) => setNewAddress(e.target.value)}></input>
-                                <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address length is too long. Length must be shorter than 255 characters.</p>
+                                <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address is too long. Length must be shorter than 255 characters.</p>
                                 
                                 <button className="cta" onClick={
                                     async () => {
