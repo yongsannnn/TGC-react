@@ -1,8 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios"
 import config from "../config"
 import { useHistory } from "react-router-dom"
-import LoginContext from "./LoginContext"
 
 const baseUrl = config.baseUrl
 
@@ -22,7 +21,6 @@ export default function CreateAccount() {
     const [isPhoneEmpty, setIsPhoneEmpty] = useState(false)
     const [addressLength, setAddressLength] = useState(false)
     const [registerError, setRegisterError] = useState(false)
-    let context = useContext(LoginContext)
 
     function validateEmail(email) {
         let reg = /\S+@\S+\.\S+/;

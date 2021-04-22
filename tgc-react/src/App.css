@@ -4,16 +4,25 @@
     font-family: 'Lato', sans-serif;
 }
 
-h1{
+h1,h2,h3,h4,h5,h6{
     font-family: 'Cormorant Garamond', serif;
 }
 
 .nav-route{
-    font-size: 10px;
+    font-size: 0.7em;
     padding: 1em 0;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
     text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-link-tag{
+    color: #777777;
+}
+
+.nav-link-tag:hover{
+    color: #d6954b;
 }
 .page-width{
     display:flex;
@@ -85,6 +94,41 @@ h1{
 .edit-row{
     color: #777777;
 }
+
+
+.product-img{
+    width:100%;
+    height:350px;
+    background-position: center;
+    background-size: cover;
+}
+
+.small-text{
+    font-size: 0.8em;
+    color: #777777;
+    font-style: italic;
+}
+
+.hero-img{
+    object-fit: cover;
+}
+
+.product-indi-img{
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+}
+
+.product-indi-link{
+    color: #4a4a4a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.product-indi-link:hover{
+    color: #d6954b;
+}
+
 .footer-wrapper{
     background-color: #f4f4f4;
     padding:2em;

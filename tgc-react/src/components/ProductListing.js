@@ -18,15 +18,32 @@ export function ProductListing() {
 
     return (
         <React.Fragment>
-            {
-                products.map(p => <div key={p.id}>
-                    <p>{p.name}</p>
-                    <p>{p.cost}</p>
-                    <p>{p.description}</p>
-                    <Link to={"/products/" + p.id}>See more</Link>
+            <div className="row">
+                <div className="col-2">
+                    <h6>Filter</h6>
+                </div>
+                <div className="col-10">
+                    <h3>Product</h3>
+                    <div className="product-img" style={{
+                        backgroundImage: `url(http://cdn.shopify.com/s/files/1/0311/4398/5197/collections/AOT-Loose-Leaf-Header-Banner_1800x.jpg?v=1586118019)`
+                    }} >
 
-                </div>)
-            }
+                    </div>
+                    <p className="mt-3 small-text">{products.length} ITEMS</p>
+                    <div className="mt-4 row">
+                        {
+                            products.map(p =>
+                                <div className="col-4 p-1 mb-3">
+                                    <div className="product-indi-img" key={p.id} style={{ backgroundImage: `url(${p.image})` }}></div>
+                                    <div className="login-btn-wrapper">
+                                        <Link to={"/products/" + p.id} className="mt-3 product-indi-link">{p.name}</Link>
+                                    </div>
+                                </div>)
+                        }
+
+                    </div>
+                </div>
+            </div>
         </React.Fragment>
     )
 } 
