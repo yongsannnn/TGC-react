@@ -82,6 +82,9 @@ h1{
   background-position: center;
 }
 
+.edit-row{
+    color: #777777;
+}
 .footer-wrapper{
     background-color: #f4f4f4;
     padding:2em;
