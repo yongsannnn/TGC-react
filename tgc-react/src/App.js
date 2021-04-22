@@ -66,7 +66,7 @@ function App() {
             <Router>
                 <nav className="navbar navbar-expand-lg navbar-light " style={{ padding: "0rem 2rem" }}>
                     <Link className="navbar-brand" to="/">
-                        TEE GEE SEE
+                        Tea Empire
                     </Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +102,7 @@ function App() {
                     </div>
                 </nav>
                 <section style={{ padding: "0rem 2rem",
-            minHeight: "80vh" }}>
+            minHeight: "78vh" }}>
                     <Switch>
                         <Route exact path="/">
                             <Landing />
@@ -140,8 +140,8 @@ function App() {
                         </Route> 
                     </Switch>
                 </section>
+                <Footer/>
             </Router>
-            <Footer/>
         </React.Fragment>
     );
 }

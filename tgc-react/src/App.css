@@ -76,6 +76,43 @@ h1{
   background-position: center;
 }
 
+.footer-wrapper{
+    background-color: #f4f4f4;
+    padding:2em;
+}
+
+.footer{
+    display:flex;
+    max-width: 1140px;
+    margin: 0 auto;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.footer-header{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.footer-list{
+    padding:0;
+}
+
+.footer-link{
+    list-style-type: none;
+    margin-bottom: 0.7em;
+}
+.footer-link-cta{
+    color:#777777;
+}
+
+.footer-link-cta:hover{
+    color:#d6954b;
+}
+
+.footer-text{
+    color: #777777;
+}
+
 .product-img-container{
     height: 300px;
     width: 300px;
