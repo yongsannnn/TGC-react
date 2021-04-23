@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react"
 import config from "../config"
 import axios from "axios"
 import { useParams, useHistory } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 
 export default function IndividualProduct() {
     let { tea_id } = useParams();
+    let location = useLocation();
+    console.log(location)
     const history = useHistory();
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -143,18 +145,13 @@ export default function IndividualProduct() {
                             </div>
                         </div>
                         <p className="indi-spacing"></p>
-
-                        <p style={{
-                            display: noti === true ? "block" : "none"
-                        }}>Item has been added to your cart</p>
                         <button className="indi-add-to-cart" onClick={
                             async () => {
                                 // check if user is logged in
                                 if (localStorage.getItem("id") !== null) {
                                     // If user is logged in, push item into his cart
                                     let user_id = localStorage.getItem("id")
-                                    let response = await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
-                                    console.log(response)
+                                    await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
                                 } else {
                                     // if user is not logged in, send him to login page first. 
                                     history.push("/login")
@@ -166,7 +163,9 @@ export default function IndividualProduct() {
                                 }, 2000)
                             }
                         }>Add To Cart - ${cost.toFixed(2)}</button>
-
+                        <p className="mt-2"style={{
+                            display: noti === true ? "block" : "none"
+                        }}>Item has been added to your cart</p>
                     </div>
                 </div>
 
