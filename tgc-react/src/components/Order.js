@@ -33,13 +33,15 @@ export default function Order() {
         let lst = []
         for (let o of orderList) {
             lst.push(
-                <div key={o.id}>
-                    <p>{o.id}</p>
-                    <p>{o.status.name}</p>
-                    <p>Order placed on: {o.date_of_order.slice(0, 10)}</p>
-                    <Link to={"/order/" + o.id}>Manage</Link>
-
-                </div>
+                <tr key={o.id}>
+                    <td>{o.id}</td>
+                    <td>{o.status.name}</td>
+                    <td>{o.date_of_order.slice(0, 10)}</td>
+                    <td>${(o.total_cost/100).toFixed(2)}</td>
+                    <td>{o.date_of_completion === null ? "-" : o.date_of_completion.slice(0,10)}</td>
+                    <td><Link className="footer-link-cta" to={"/order/" + o.id}>Manage</Link>
+                    </td>
+                </tr>
             )
         }
         if (lst.length === 0) {
@@ -57,8 +59,38 @@ export default function Order() {
     } else {
         return (
             <React.Fragment>
-                <p>Order </p>
-                {displayOrders()}
+                <div className="page-width">
+                    <div className="login-wrapper orders-wrapper">
+                        <h1>My Orders </h1>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Placed on
+                                    </th>
+                                    <th>
+                                        Subtotal
+                                    </th>
+                                    <th>
+                                        Completed on
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {displayOrders()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </React.Fragment>
         )
     }
