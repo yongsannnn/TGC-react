@@ -3,7 +3,7 @@ import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { useState } from "react"
 import LoginComponent from "./components/LoginComponent";
-import Education from "./components/Education";
+// import Education from "./components/Education";
 import Product from "./components/Product";
 import Landing from "./components/Landing";
 import LoginContext from "./components/LoginContext";
@@ -76,8 +76,8 @@ function App() {
                         </button> */}
                         {/* <div className="collapse navbar-collapse" id="navbarNavAltMarkup"> */}
                         <div className="navbar-nav">
-                            <Link className="nav-item nav-link" to="/products">Teas</Link>
-                            <Link className="nav-item nav-link" to="/education">Education</Link>
+                            <Link className="nav-item nav-link" to="/products">All Teas</Link>
+                            {/* <Link className="nav-item nav-link" to="/education">Education</Link> */}
                         </div>
                         <div className="navbar-nav ml-auto">
                             <Link className="nav-item nav-link ml-auto" style={{
@@ -113,9 +113,9 @@ function App() {
                             <Route exact path="/products">
                                 <Product />
                             </Route>
-                            <Route exact path="/education">
+                            {/* <Route exact path="/education">
                                 <Education />
-                            </Route>
+                            </Route> */}
                             <Route exact path="/login">
                                 <LoginContext.Provider value={context}>
                                     <LoginComponent />
