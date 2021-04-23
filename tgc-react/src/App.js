@@ -104,7 +104,6 @@ function App() {
                         {/* </div> */}
                     </nav>
                     <section style={{
-                        padding: "0rem 2rem",
                         minHeight: "78vh"
                     }}>
                         <Switch>

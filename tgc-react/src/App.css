@@ -33,6 +33,23 @@ h1,h2,h3,h4,h5,h6{
 .nav-link-tag:hover{
     color: #d6954b;
 }
+.home-hero-img{
+    background-image: url("http://cdn.shopify.com/s/files/1/0311/4398/5197/files/AOT-Home-Banner-Teachable-041320_HH_1800x.jpg?v=1587056156");
+    height:80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-wrapper{
+    position: absolute; 
+    right: 10%;
+    top: 30%;
+}
+
+.hero-text{
+    margin-bottom:20px;
+}
+
 .page-width{
     display:flex;
     margin: auto;
