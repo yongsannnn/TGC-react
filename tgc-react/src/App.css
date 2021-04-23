@@ -160,8 +160,8 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .product-img-container{
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     background-size: cover;
     background-position: center;
 }
@@ -229,6 +229,13 @@ h1,h2,h3,h4,h5,h6{
     border-bottom-color: #4a4a4a;
 }
 
+.light-grey-line{
+    width: 100%;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #b3b3b3f4
+}
+
 .cart-update-qty-box{
     display:flex;
     align-items: center;
@@ -278,6 +285,15 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .orders-wrapper{
-    /* max-width: auto !important; */
     min-width: 700px !important
+}
+
+.order-indi-title{
+    font-size: 2em;
+    font-family: 'Cormorant Garamond', serif;
+    color: #4a4a4a;
+}
+
+.order-indi-title:hover{
+    color: #d6954b;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import config from "../config"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 const baseUrl = config.baseUrl
 
 
@@ -28,19 +28,59 @@ export default function IndividualOrder() {
     const displayOrderDetails = () => {
         // Display details of the order
         return (
-            <div key={orderDetails.id}>
-                <p>Order ID: {orderDetails.id}</p>
-                <p>Recipient Name: {orderDetails.recipient_name}</p>
-                <p>Recipient Address: {orderDetails.recipient_address}</p>
-                <p>Total Cost: ${(orderDetails.total_cost / 100).toFixed(2)}</p>
-                <p>Ordered on: {orderDetails.date_of_order.slice(0, 10)}</p>
-                <p>Completed on: {orderDetails.date_of_completion !== null ? orderDetails.date_of_completion.slice(0, 10) : "-"}</p>
-                <p>Status: {orderDetails.status.name}</p>
-            </div>
-
+            <table key={orderDetails.id}>
+                <tbody>
+                    <tr>
+                        <td style={{ width: "200px", color: "#777777" }}>
+                            Order ID:
+                    </td>
+                        <td>
+                            {orderDetails.id}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ color: "#777777" }}>
+                            Recipient Name:
+                    </td>
+                        <td>
+                            {orderDetails.recipient_name}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ color: "#777777" }}>
+                            Recipient Address:
+                    </td>
+                        <td>
+                            {orderDetails.recipient_address}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ color: "#777777" }}>
+                            Subtotal:
+                    </td>
+                        <td>
+                            ${(orderDetails.total_cost / 100).toFixed(2)}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ color: "#777777" }}>
+                            Completed on:
+                    </td>
+                        <td>
+                            {orderDetails.date_of_completion !== null ? orderDetails.date_of_completion.slice(0, 10) : "-"}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ color: "#777777" }}>
+                            Status:
+                    </td>
+                        <td>
+                            {orderDetails.status.name}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         )
-
-
     }
 
     const displayOrderItems = () => {
@@ -48,16 +88,27 @@ export default function IndividualOrder() {
         let lst = []
         for (let i of orderItem) {
             lst.push(
-                <div key={i.id}>
-                    <p>{i.tea.name}</p>
-                    <p>{i.quantity}</p>
-                    <div className="product-img-container" style={{
-                        backgroundImage: `url(${i.tea.image})`
-                    }} ></div>
-                </div>
+                <React.Fragment>
+                    <div className="row mt-2 mb-2" key={i.id}>
+                        <div className="col-3">
+                            <div className="product-img-container" style={{
+                                backgroundImage: `url(${i.tea.image})`
+                            }} ></div>
+                        </div>
+                        <div className="col-9">
+                            <Link className="order-indi-title" to={"/products/" + i.tea.id}>{i.tea.name}</Link>
+                            <p className="cart-indi-des">Quantity: {i.quantity}</p>
+                            <p className="cart-indi-des">{i.tea.description}</p>
+                            <div className="cart-indi-cost">
+                                <p>${(i.tea.cost * i.quantity / 100).toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p className="light-grey-line mt-3"></p>
+                </React.Fragment>
             )
         }
-        if (lst[0] === undefined){
+        if (lst[0] === undefined) {
             return (<div>No items to display</div>)
         } else {
             return lst
@@ -71,11 +122,14 @@ export default function IndividualOrder() {
     } else {
         return (
             <React.Fragment>
-                <p>Individual Order</p>
-                <p>ORDER DETAILS</p>
-                {displayOrderDetails()}
-                <p>ITEM DETAILS</p>
-                {displayOrderItems()}
+                <div className="page-width" style={{ display: "block" }}>
+                    <h1>Order Information</h1>
+                    <p className="grey-line"></p>
+                    {displayOrderDetails()}
+                    <h1 className="mt-3">Item Details</h1>
+                    <p className="grey-line"></p>
+                    {displayOrderItems()}
+                </div>
             </React.Fragment>
         )
     }

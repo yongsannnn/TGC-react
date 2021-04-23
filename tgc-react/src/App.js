@@ -70,11 +70,11 @@ function App() {
                         <Link className="navbar-brand" to="/">
                             Tea Empire
                     </Link>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                        {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        </button> */}
+                        {/* <div className="collapse navbar-collapse" id="navbarNavAltMarkup"> */}
                             <div className="navbar-nav">
                                 <Link className="nav-item nav-link" to="/products">Teas</Link>
                                 <Link className="nav-item nav-link" to="/education">Education</Link>
@@ -101,7 +101,7 @@ function App() {
                                     }
                                 }>Log Out</Link>
                             </div>
-                        </div>
+                        {/* </div> */}
                     </nav>
                     <section style={{
                         padding: "0rem 2rem",
