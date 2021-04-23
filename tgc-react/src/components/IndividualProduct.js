@@ -59,7 +59,7 @@ export default function IndividualProduct() {
     } else {
         return (
             <React.Fragment>
-                <div class="mt-2 mb-4 nav-route">
+                <div className="mt-2 mb-4 nav-route">
                     <Link className="nav-link-tag" to="/">HOME </Link>
                     /
                     <Link className="nav-link-tag" to="/products"> PRODUCTS </Link>
@@ -87,7 +87,7 @@ export default function IndividualProduct() {
                                     <table className="table">
                                         <tr className="indi-table-details">
                                             <td>
-                                                <i class="fas fa-tint mr-2"></i> WATER TEMPERATURE
+                                                <i className="fas fa-tint mr-2"></i> WATER TEMPERATURE
                                             </td>
                                             <td>
                                                 {waterTemp} °C
@@ -95,7 +95,7 @@ export default function IndividualProduct() {
                                         </tr>
                                         <tr className="indi-table-details">
                                             <td>
-                                               <i class="fas fa-hourglass-half mr-2"></i> STEEP TIME
+                                               <i className="fas fa-hourglass-half mr-2"></i> STEEP TIME
                                             </td>
                                             <td>
                                                 {steepTime}
@@ -103,7 +103,7 @@ export default function IndividualProduct() {
                                         </tr>
                                         <tr className="indi-table-details">
                                             <td >
-                                                <i class="fas fa-mug-hot mr-2"></i>SERVING
+                                                <i className="fas fa-mug-hot mr-2"></i>SERVING
                                             </td>
                                             <td>
                                                 {serving}

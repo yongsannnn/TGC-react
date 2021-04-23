@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 export default function Product() {
     return (
         <React.Fragment>
-            <div class="mt-2 mb-4 nav-route">
+            <div className="mt-2 mb-4 nav-route">
                 <Link className="nav-link-tag" to="/">HOME </Link>
                 /
                 <Link className="nav-link-tag" to="/products"> PRODUCTS </Link>

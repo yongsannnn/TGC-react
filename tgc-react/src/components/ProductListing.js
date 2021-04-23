@@ -33,7 +33,7 @@ export function ProductListing() {
                     <div className="mt-4 row">
                         {
                             products.map(p =>
-                                <div className="col-4 p-1 mb-3">
+                                <div className="col-4 p-1 mb-3" key={p.id}>
                                     <div className="product-indi-img" key={p.id} style={{ backgroundImage: `url(${p.image})` }}></div>
                                     <div className="login-btn-wrapper">
                                         <Link to={"/products/" + p.id} className="mt-3 product-indi-link">{p.name}</Link>

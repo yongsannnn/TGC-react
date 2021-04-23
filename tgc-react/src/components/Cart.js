@@ -23,11 +23,6 @@ export default function Cart() {
                 let response = await axios.get(baseUrl + "/api/cart/" + localStorage.getItem("id"))
                 if (response.data !== "Unable to get all items.") {
                     setCartItem(response.data)
-                    // let subTotal = 0;
-                    // for (let i of response.data) {
-                    //     subTotal += (i.tea.cost * i.quantity)
-                    // }
-                    // setTotalCost(subTotal)
                     setIsLoaded(true)
                 } else {
                     // Unable to load cart, please refresh page or relogin. 
@@ -63,6 +58,10 @@ export default function Cart() {
         }
         // Set back the state
         setCartItem(cloned)
+        let userId = localStorage.getItem("id")
+        await axios.post(`${baseUrl}/api/cart/${userId}/${e.target.name}/update`, {
+            "quantity": cloned[teaIndex].quantity
+        })
     }
 
     const incrementQty = async (e) => {
@@ -70,25 +69,21 @@ export default function Cart() {
         let cloned = [...cartItem]
         cloned[teaIndex].quantity += 1
         setCartItem(cloned)
-    }
-
-    // const showTotalCost = () => {
-    //     let subTotal = 0;
-    //     for (let i of cartItem) {
-    //         subTotal += (i.tea.cost * i.quantity)
-    //     }
-    //     setTotalCost(subTotal)
-    // }
-
-    const updateQty = async (e) => {
         let userId = localStorage.getItem("id")
-        let response = await axios.post(`${baseUrl}/api/cart/${userId}/${e.target.name}/update`, {
-            "quantity": e.target.value
+        await axios.post(`${baseUrl}/api/cart/${userId}/${e.target.name}/update`, {
+            "quantity": cloned[teaIndex].quantity
         })
-        console.log(response)
-        // showTotalCost()
-
     }
+
+    // const updateQty = async (e) => {
+    //     let userId = localStorage.getItem("id")
+    //     let response = await axios.post(`${baseUrl}/api/cart/${userId}/${e.target.name}/update`, {
+    //         "quantity": e.target.value
+    //     })
+    //     console.log(response)
+    //     // showTotalCost()
+
+    // }
 
     const deleteItem = async (e) => {
         let userId = localStorage.getItem("id")
@@ -115,28 +110,46 @@ export default function Cart() {
     } else {
         return (
             <React.Fragment>
-                <p>Cart</p>
-                {
-                    cartItem.map(p =>
-                        <div className="row" key={p.id}>
-                            <div className="col-6">
-                                <div className="img-container" style={{
-                                    backgroundImage: `url(${p.tea.image})`
-                                }}></div>
-                            </div>
-                            <div className="col-6">
-                                <p>{p.tea.name}</p>
-                                <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
-                                <button onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
-                                <p>{p.quantity}</p>
-                                <button onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
-                                <button onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
-                                <button onClick={deleteItem} name={p.tea.id}>Delete</button>
-                            </div>
-                        </div>)
-                }
-                <p> Total Cost: ${(totalCost / 100).toFixed(2)} </p>
-                <a href={"https://3000-blue-cicada-r1im72vl.ws-us03.gitpod.io/api/checkout/"+ localStorage.getItem("id")}>Checkout</a>
+                <div className="page-width" style={{ display: "block" }}>
+                    <h1 className="mb-2">My Cart</h1>
+                    {
+                        cartItem.map(p =>
+                            <React.Fragment>
+                                <div className="row mt-2 mb-3" key={p.id}>
+                                    <div className="col-3">
+                                        <div className="cart-img-container" style={{
+                                            backgroundImage: `url(${p.tea.image})`
+                                        }}></div>
+                                    </div>
+                                    <div className="col-9">
+                                        <h3 style={{color: "#4a4a4a"}}>{p.tea.name}</h3>
+                                    <p className="cart-indi-des">{p.tea.description}</p>
+                                        <div className="cart-update-qty-box mb-2">
+                                            <button className="cart-update-qty mr-2" onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
+                                            {p.quantity}
+                                            <button className="cart-update-qty ml-2" onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
+                                        </div>
+                                        {/* <div>
+                                            <button className="cart-qty-cta mb-1" onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
+                                        </div> */}
+                                        <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i class="fas fa-trash"></i></button>
+                                        <div className="cart-indi-cost">
+                                            <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="grey-line"></p>
+                            </React.Fragment>
+                        )
+                    }
+                    <div className="cart-total-cost">
+                    <p> SUBTOTAL:</p>
+                    <p>  ${(totalCost / 100).toFixed(2)}  </p>
+                    </div>
+                    <div className="cart-checkout">
+                        <a className="cta" href={"https://3000-blue-cicada-r1im72vl.ws-us03.gitpod.io/api/checkout/" + localStorage.getItem("id")}>Checkout</a>
+                    </div>
+                </div>
             </React.Fragment>
         )
     }
