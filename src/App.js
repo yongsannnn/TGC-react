@@ -32,7 +32,7 @@ function App() {
             })
             localStorage.setItem("accessToken", response.data.accessToken)
         }, 10 * 60 * 1000) 
-    })
+    }, [])
     // Check if there is token in local storage
     const isToken = localStorage.getItem("accessToken")
     if (isToken) {
