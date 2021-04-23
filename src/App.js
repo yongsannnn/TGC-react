@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import LoginComponent from "./components/LoginComponent";
 // import Education from "./components/Education";
 import Product from "./components/Product";
@@ -24,6 +24,15 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userId, setUserId] = useState(0)
 
+    useEffect(()=>{
+        //Set interval for refresh token
+        setInterval (async () => {
+            const response = await axios.post(baseUrl + "/api/users/refresh", {
+                "refreshToken": localStorage.getItem("refreshToken"),
+            })
+            localStorage.setItem("accessToken", response.data.accessToken)
+        }, 10 * 60 * 1000) 
+    })
     // Check if there is token in local storage
     const isToken = localStorage.getItem("accessToken")
     if (isToken) {
@@ -96,8 +105,13 @@ function App() {
                                 display: loggedIn === true ? "block" : "none"
                             }} to="/" onClick={
                                 async () => {
-                                    localStorage.clear()
-                                    setLoggedIn(false)
+                                    const response = await axios.post(baseUrl + "/api/users/logout", {
+                                        "refreshToken": localStorage.getItem("refreshToken")
+                                    })
+                                    if (response.data) {
+                                        localStorage.clear()
+                                        setLoggedIn(false)
+                                    }
                                 }
                             }>Log Out</Link>
                         </div>
