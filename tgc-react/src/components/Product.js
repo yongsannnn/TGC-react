@@ -6,9 +6,9 @@ export default function Product() {
     return (
         <React.Fragment>
             <div class="mt-2 mb-4 nav-route">
-                <Link className="nav-link-tag" to="/">HOME</Link>
+                <Link className="nav-link-tag" to="/">HOME </Link>
                 /
-                <Link className="nav-link-tag" to="/products">PRODUCTS</Link>
+                <Link className="nav-link-tag" to="/products"> PRODUCTS </Link>
             </div>
             <ProductListing />
         </React.Fragment>
