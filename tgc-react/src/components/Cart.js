@@ -129,10 +129,7 @@ export default function Cart() {
                                             {p.quantity}
                                             <button className="cart-update-qty ml-2" onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
                                         </div>
-                                        {/* <div>
-                                            <button className="cart-qty-cta mb-1" onClick={updateQty} name={p.tea.id} value={p.quantity}>Update</button>
-                                        </div> */}
-                                        <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i class="fas fa-trash"></i></button>
+                                        <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i className="fas fa-trash"></i></button>
                                         <div className="cart-indi-cost">
                                             <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
                                         </div>

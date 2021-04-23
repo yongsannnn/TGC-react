@@ -66,41 +66,41 @@ function App() {
         <React.Fragment>
             <Router>
                 <ScrollToTop>
-                    <nav className="navbar navbar-expand-lg navbar-light " style={{ padding: "0rem 2rem" }}>
-                        <Link className="navbar-brand" to="/">
-                            Tea Empire
-                    </Link>
+                    <nav className="navbar navbar-expand-lg navbar-light" style={{ padding: "0rem 2rem" }}>
+                        <Link className="navbar-brand" style={{display: "flex", height: "40px"}}to="/">
+                            <img src={require("./leaf.png").default} alt="logo" /> <p className="logo-title">Tea Empire</p>
+                        </Link>
                         {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button> */}
                         {/* <div className="collapse navbar-collapse" id="navbarNavAltMarkup"> */}
-                            <div className="navbar-nav">
-                                <Link className="nav-item nav-link" to="/products">Teas</Link>
-                                <Link className="nav-item nav-link" to="/education">Education</Link>
-                            </div>
-                            <div className="navbar-nav ml-auto">
-                                <Link className="nav-item nav-link ml-auto" style={{
-                                    display: loggedIn === false ? "block" : "none"
-                                }} to="/login">Log In</Link>
-                                <Link className="nav-item nav-link ml-auto" style={{
-                                    display: loggedIn === true ? "block" : "none"
-                                }} to={"/cart"}>Cart</Link>
-                                <Link className="nav-item nav-link ml-auto" style={{
-                                    display: loggedIn === true ? "block" : "none"
-                                }} to={"/order"}>Orders</Link>
-                                <Link className="nav-item nav-link ml-auto" style={{
-                                    display: loggedIn === true ? "block" : "none"
-                                }} to={"/edit/"}>Edit</Link>
-                                <Link className="nav-item nav-link ml-auto" style={{
-                                    display: loggedIn === true ? "block" : "none"
-                                }} to="/" onClick={
-                                    async () => {
-                                        localStorage.clear()
-                                        setLoggedIn(false)
-                                    }
-                                }>Log Out</Link>
-                            </div>
+                        <div className="navbar-nav">
+                            <Link className="nav-item nav-link" to="/products">Teas</Link>
+                            <Link className="nav-item nav-link" to="/education">Education</Link>
+                        </div>
+                        <div className="navbar-nav ml-auto">
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === false ? "block" : "none"
+                            }} to="/login">Log In</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/cart"}>Cart</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/order"}>Orders</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to={"/edit/"}>Edit</Link>
+                            <Link className="nav-item nav-link ml-auto" style={{
+                                display: loggedIn === true ? "block" : "none"
+                            }} to="/" onClick={
+                                async () => {
+                                    localStorage.clear()
+                                    setLoggedIn(false)
+                                }
+                            }>Log Out</Link>
+                        </div>
                         {/* </div> */}
                     </nav>
                     <section style={{

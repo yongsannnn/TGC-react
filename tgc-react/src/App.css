@@ -8,6 +8,15 @@ h1,h2,h3,h4,h5,h6{
     font-family: 'Cormorant Garamond', serif;
 }
 
+.logo-title{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    /* background: linear-gradient(to right, rgb(162, 167, 94) 0%, #c8ff00 100%);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom:0!important; */
+}
 .nav-route{
     font-size: 0.7em;
     padding: 1em 0;
