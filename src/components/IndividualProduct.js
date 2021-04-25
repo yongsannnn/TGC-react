@@ -54,7 +54,7 @@ export default function IndividualProduct() {
 
     if (isLoaded === false) {
         return (
-            <div>Loading</div>
+             <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading"/>
         )
     } else {
         return (
