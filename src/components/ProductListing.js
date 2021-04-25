@@ -9,6 +9,8 @@ export function ProductListing() {
     const [products, setProducts] = useState([])
     // const [type, setType] = useState("")
     const [searchName, setSearchName] = useState("")
+    const [searchPackage, setSearchPackage] = useState("")
+    const [searchType, setSearchType] = useState("")
 
     useEffect(() => {
         const fetch = async () => {
@@ -19,9 +21,19 @@ export function ProductListing() {
     }, [])
 
     const searchQuery = async () => {
-        const response = await axios.post(baseUrl + "/api/products/search", {
-            "name": searchName
-        })
+        let searchLoad = {}
+        if (searchName !== "") {
+            searchLoad.name = searchName
+        }
+
+        if (searchPackage !== "- Package Type -" && searchPackage !== "") {
+            searchLoad.package_id = searchPackage
+        }
+
+        if (searchType !== "- Tea Type -" && searchType !== "") {
+            searchLoad.type_id = searchType
+        }
+        const response = await axios.post(baseUrl + "/api/products/search", searchLoad)
         setProducts(response.data)
     }
 
@@ -40,6 +52,19 @@ export function ProductListing() {
                         <button className="reset-btn" onClick={resetQuery}><i class="fas fa-sync-alt"></i></button>
                     </div>
                     <input type="text" className="login-input" name="searchName" placeholder="Search By Name" onChange={(e) => setSearchName(e.target.value)}></input>
+                    <select className="login-input" name="searchPackage" onChange={(e) => setSearchPackage(e.target.value)}>
+                        <option defaultValue>- Package Type -</option>
+                        <option value="1">Loose Leaf Tea</option>
+                        <option value="2">Teabag Sachets</option>
+                    </select>
+                    <select className="login-input" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
+                        <option defaultValue>- Tea Type -</option>
+                        <option value="1">Black Tea</option>
+                        <option value="2">Green Tea</option>
+                        <option value="3">Oolong Tea</option>
+                        <option value="4">Pu-Erh Tea</option>
+                        <option value="5">White Tea</option>
+                    </select>
                     <button type="submit" className="cta" onClick={searchQuery}>Search</button>
                 </div>
                 <div className="col-10">
