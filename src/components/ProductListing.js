@@ -7,6 +7,7 @@ const baseUrl = config.baseUrl
 
 export function ProductListing() {
     const [products, setProducts] = useState([])
+    const [type, setType] = useState("")
 
     useEffect(() => {
         const fetch = async () => {
@@ -20,7 +21,7 @@ export function ProductListing() {
         <React.Fragment>
             <div className="row">
                 <div className="col-2">
-                    <h6>Filter</h6>
+                    {/* <h6>Filter</h6> */}
                 </div>
                 <div className="col-10">
                     <h3>Product</h3>

@@ -9,7 +9,7 @@ export default function Footer() {
                     <p className="footer-header">quick links</p>
                     <ul className="footer-list">
                         <li className="footer-link"><Link className="footer-link-cta" to="/products">All Teas</Link></li>
-                        <li className="footer-link"><Link className="footer-link-cta" to="/education">Education</Link></li>
+                        {/* <li className="footer-link"><Link className="footer-link-cta" to="/education">Education</Link></li> */}
                     </ul>
                 </section>
                 <section className="footer-center">
