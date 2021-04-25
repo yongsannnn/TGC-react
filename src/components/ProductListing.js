@@ -40,24 +40,26 @@ export function ProductListing() {
     const resetQuery = async () => {
         const response = await axios.get(baseUrl + "/api/products")
         setProducts(response.data)
+        setSearchPackage("")
+        setSearchType("")
+        setSearchName("")
     }
 
     return (
         <React.Fragment>
             <div className="row">
                 <div className="col-2">
-                    <div className="indi-spacing"></div>
                     <div className="filter-header mb-2">
-                        <h6>Filter</h6>
+                        <h3>Filter</h3>
                         <button className="reset-btn" onClick={resetQuery}><i class="fas fa-sync-alt"></i></button>
                     </div>
-                    <input type="text" className="login-input" name="searchName" placeholder="Search By Name" onChange={(e) => setSearchName(e.target.value)}></input>
-                    <select className="login-input" name="searchPackage" onChange={(e) => setSearchPackage(e.target.value)}>
+                    <input type="text" className="login-input" name="searchName" placeholder="Search By Name" value={searchName} onChange={(e) => setSearchName(e.target.value)}></input>
+                    <select className="login-input" name="searchPackage" value={searchPackage} onChange={(e) => setSearchPackage(e.target.value)}>
                         <option defaultValue>- Package Type -</option>
                         <option value="1">Loose Leaf Tea</option>
                         <option value="2">Teabag Sachets</option>
                     </select>
-                    <select className="login-input" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
+                    <select className="login-input" name="searchType" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                         <option defaultValue>- Tea Type -</option>
                         <option value="1">Black Tea</option>
                         <option value="2">Green Tea</option>
