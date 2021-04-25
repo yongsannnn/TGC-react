@@ -7,7 +7,8 @@ const baseUrl = config.baseUrl
 
 export function ProductListing() {
     const [products, setProducts] = useState([])
-    const [type, setType] = useState("")
+    // const [type, setType] = useState("")
+    const [searchName, setSearchName] = useState("")
 
     useEffect(() => {
         const fetch = async () => {
@@ -17,11 +18,29 @@ export function ProductListing() {
         fetch()
     }, [])
 
+    const searchQuery = async () => {
+        const response = await axios.post(baseUrl + "/api/products/search", {
+            "name": searchName
+        })
+        setProducts(response.data)
+    }
+
+    const resetQuery = async () => {
+        const response = await axios.get(baseUrl + "/api/products")
+        setProducts(response.data)
+    }
+
     return (
         <React.Fragment>
             <div className="row">
                 <div className="col-2">
-                    {/* <h6>Filter</h6> */}
+                    <div className="indi-spacing"></div>
+                    <div className="filter-header mb-2">
+                        <h6>Filter</h6>
+                        <button className="reset-btn" onClick={resetQuery}><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <input type="text" className="login-input" name="searchName" placeholder="Search By Name" onChange={(e) => setSearchName(e.target.value)}></input>
+                    <button type="submit" className="cta" onClick={searchQuery}>Search</button>
                 </div>
                 <div className="col-10">
                     <h3>Product</h3>

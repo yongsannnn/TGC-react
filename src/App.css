@@ -330,3 +330,18 @@ h1,h2,h3,h4,h5,h6{
 .order-indi-title:hover{
     color: #d6954b;
 }
+
+.filter-header{
+    display:flex;
+    justify-content: space-between;
+}
+
+.reset-btn{
+    background-color: white;
+    border: none;
+    color: #d6954b;
+}
+
+.reset-btn:hover{
+    color: #4a4a4a;
+}
