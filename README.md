@@ -189,9 +189,6 @@ The font is a sans serif typeface. The semi-rounded details of the letters give 
 ## Form-validation
 Apart from third party/technologies mentioned below. I have used conditional rendering and flags to check if form inputs by the user are in the acceptable format. The conditional rendering will show the user which fields are unacceptable and provide context. 
 
-
-```
-
 # Deployment
 Ensured all changes has been save and pushed to GitHub.
 
