@@ -182,7 +182,7 @@ export default function Cart() {
                         <p>  ${(totalCost / 100).toFixed(2)}  </p>
                     </div>
                     <div className="cart-checkout">
-                        <a className="cta" href={"https://3000-blue-cicada-r1im72vl.ws-us03.gitpod.io/api/checkout/" + localStorage.getItem("id")}>Checkout</a>
+                        <a className="cta" href={`${baseUrl}/api/checkout/` + localStorage.getItem("id")}>Checkout</a>
                     </div>
                 </div>
             </React.Fragment>
