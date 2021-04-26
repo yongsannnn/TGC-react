@@ -100,10 +100,48 @@ export default function Cart() {
 
     }
 
+    const renderCartItem = () => {
+        let lst = []
+        cartItem.map(p =>
+            lst.push(
+                <React.Fragment>
+                    <div className="row mt-2 mb-3" key={p.id}>
+                        <div className="col-3">
+                            <div className="cart-img-container" style={{
+                                backgroundImage: `url(${p.tea.image})`
+                            }}></div>
+                        </div>
+                        <div className="col-9">
+                            <h3 style={{ color: "#4a4a4a" }}>{p.tea.name}</h3>
+                            <p className="cart-indi-des">{p.tea.description}</p>
+                            <div className="cart-update-qty-box mb-2">
+                                <button className="cart-update-qty mr-2" onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
+                                {p.quantity}
+                                <button className="cart-update-qty ml-2" onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
+                            </div>
+                            <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i className="fas fa-trash"></i></button>
+                            <div className="cart-indi-cost">
+                                <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p className="grey-line"></p>
+                </React.Fragment>
+            ))
+        if (lst[0] === undefined ){
+            lst.push(
+                <div style={{height: "50vh"}}>
+                    No item in cart.
+                </div>
+            )
+        }
+        return lst
+    }
+
 
     if (isLoaded === false) {
         return (
-             <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading"/>
+            <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading" />
         )
     } else if (isLoaded === true && isLoggedIn === false) {
         history.push("/login")
@@ -112,7 +150,7 @@ export default function Cart() {
             <React.Fragment>
                 <div className="page-width" style={{ display: "block" }}>
                     <h1 className="mb-2">My Cart</h1>
-                    {
+                    {/* {
                         cartItem.map(p =>
                             <React.Fragment>
                                 <div className="row mt-2 mb-3" key={p.id}>
@@ -122,8 +160,8 @@ export default function Cart() {
                                         }}></div>
                                     </div>
                                     <div className="col-9">
-                                        <h3 style={{color: "#4a4a4a"}}>{p.tea.name}</h3>
-                                    <p className="cart-indi-des">{p.tea.description}</p>
+                                        <h3 style={{ color: "#4a4a4a" }}>{p.tea.name}</h3>
+                                        <p className="cart-indi-des">{p.tea.description}</p>
                                         <div className="cart-update-qty-box mb-2">
                                             <button className="cart-update-qty mr-2" onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
                                             {p.quantity}
@@ -138,10 +176,11 @@ export default function Cart() {
                                 <p className="grey-line"></p>
                             </React.Fragment>
                         )
-                    }
+                    } */}
+                    {renderCartItem()}
                     <div className="cart-total-cost">
-                    <p> SUBTOTAL:</p>
-                    <p>  ${(totalCost / 100).toFixed(2)}  </p>
+                        <p> SUBTOTAL:</p>
+                        <p>  ${(totalCost / 100).toFixed(2)}  </p>
                     </div>
                     <div className="cart-checkout">
                         <a className="cta" href={"https://3000-blue-cicada-r1im72vl.ws-us03.gitpod.io/api/checkout/" + localStorage.getItem("id")}>Checkout</a>
