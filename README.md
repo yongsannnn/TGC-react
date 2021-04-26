@@ -17,7 +17,11 @@ This application serve the following purpose (User's Goal):
 
 
 ## Access
-Url to live site: 
+Url to live (Consumer) site: https://sleepy-sammet-de2185.netlify.app/
+
+Url to live (Vendor) site: https://gys-tgc11-tea-empire.herokuapp.com/
+
+Take note that heroku will take up to 30 seconds to load. 
 
 
 # Defining the Project
@@ -186,13 +190,6 @@ The font is a sans serif typeface. The semi-rounded details of the letters give 
 Apart from third party/technologies mentioned below. I have used conditional rendering and flags to check if form inputs by the user are in the acceptable format. The conditional rendering will show the user which fields are unacceptable and provide context. 
 
 
-# Testing
-
-
-## Validating Markup
-All pages validated by validating service  [W3C Markup Validator](https://validator.w3.org/).
-```
-Document checking completed. No errors or warnings to show.
 ```
 
 # Deployment
@@ -212,11 +209,200 @@ react-router-dom
 ```
 
 ## Heroku 
+Step 1| Log into Heroku
+At the terminal, log in to heroku with:
+```
+heroku login - i
+```
+
+Enter your username and password.
+
+
+Step 2| Create the Heroku App
+Once you have logged in, create a new Heroku app with the following commands at the terminal:
+```
+heroku create <app-name>
+```
+
+Replace app-name with a name of your choice. Do not use underscore. As the app name has to be unique, make sure the name you use is distinctive. You can use your initials as part of the app name, for instance.
+
+
+Step 3| Define Procfile
+The Procfile executes a command when Heroku needs to run our server. Create one in the same directory as index.js and name it as Procfile (the first alphabet must be capitalized, and there is no extension).
+
+Add the following line to the Procfile:
+```
+web: node index.js
+```
+
+Make sure to save the Procfile
+
+Step 4| Add a start script to package.json
+```
+{
+  "name": "06-api-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+. . .
+}
+```
+
+Step 5| Change the port that we are using
+
+In index.js, change the 3000 in app.listen to process.env.PORT. 
+
+```
+app.listen(process.env.PORT, () => {
+    console.log("Server has started");
+});
+```
+Step 6| Push to Heroku
+
+Make sure you have a .gitignore file, and it must have node_modules, sessions/ and .env included,
+```
+git add .
+git commit -m "Deploy to Heroku"
+git push heroku master
+```
+
+
+Step 7| Setup the Database
+We need to use an external database, hosted on an external server, for our project. Heroku itself offers some database hosting services, such as Postgres and ClearDB. We are going with the former for this lab.
+
+In the terminal, type in:
+```
+heroku addons:create heroku-postgresql
+```
+
+When you are done, go to Heroku, and open your newly created application. Click on settings, and then "Reveal Config":
+
+You should be able to see a DATABASE_URL setting.
+
+Step 8| Add database information to your .env file
+Make a copy of your .env file.
+
+Open up Notepad, and paste in the DATABASE_URL obtained from the previous step.
+
+Follow the steps below to obtain the host, user, password and database name:
+```
+The syntax is postgres://<user>:<password>@<host>/<database_name>?reconnect = true
+
+Example:
+postgres://b80f8d428xxxxx:f48exxxx@us-cdbr-iron-east-02.cleardb.net/heroku_58632fb6debxxxx?reconnect=true
+
+# host will be: us-cdbr-iron-east-02.cleardb.net
+
+# user will be: B80f8d428xxxxx
+
+# password will be: F48exxxx
+
+# database_name will be: heroku_58632fb6debxxxx
+```
+
+In your .env file, change the setting DB_DRIVER to postgres
+
+Update your .env file with the host, user, password and database name obtained from parsing the syntax above.
+
+Finally, install postgres with:
+```
+yarn add pg
+yarn add db-migrate-pg
+```
+
+Step 9| Setup tables with migrations
+
+Change your database.json to read as below:
+```
+{
+  "dev": {
+    "driver": {"ENV" :"DB_DRIVER"},
+    "user": {"ENV": "DB_USER" },
+    "password": {"ENV":"DB_PASSWORD"},
+    "database": {"ENV":"DB_DATABASE"},
+    "host": {"ENV":"DB_HOST"},
+    "ssl": {
+         "rejectUnauthorized": false
+    }
+  }
+}
+```
+
+
+Do the same for bookshelf/index.js
+```
+const knex = require('knex')({
+    'client': process.env.DB_DRIVER,
+    'connection': {
+        'user': process.env.DB_USER,
+        'password': process.env.DB_PASSWORD,
+        'database': process.env.DB_DATABASE,
+        'host':process.env.DB_HOST,
+        'ssl': {
+            'rejectUnauthorized': false
+        }
+    }
+})
+```
+
+In the terminal, type in:
+```
+./db-migrate.sh up
+```
+
+The migration takes a longer time to run now because it is happening on a remote server.
+
+Step 10| Copy all settings from the  .ENV file to Heroku
+
+Once more, go to your application in Heroku and copy over the various settings from your .env file over.
+
+Step 11| Do a commit and then push to Heroku
+We have made some changes to our code, so be sure to commit and push.
+
+Step 12| Install DB Beaver
+We need a software that allows us to add in new categories, tags and etc, and one way of connecting to the new Postgres database that we have is Dbeaver.  Head off to https://dbeaver.io/ to download the community version of Dbeaver and install that on your computer.
+
+After this, launch the software. 
+
+From the pop-up window, select Postgres:
+
+
+It will then request to download some necessary files. Allow the operation.
+
+
+In the window that shows up next, fill in the Postgres database you obtained from step 8. Once finished, click on the Finish button.
+
+
+The new connection will appear on the left-hand side window. Double click on it. You will be able to see all your tables once you collapse the schemas then publics folder:
+
+
+Select the categories table.
+
+
+Click on the Insert Row button at the bottom of the table (or just press ALT + INSERT) to add a new row.  (See diagram below):
+
+Add as many categories as you like.  Do not fill in the id column (leave it as the text in grey).
+
+Click on the Save button at the bottom of the table when done
+
+Step 13| Generate a new endpoint secret for your Heroku checkout
+Go to Stripe, and add in a new endpoint for https::/heroku_url/checkout/process_payment, and replace the old endpoint secret with the new one in your Heroku settings.
 
 Credits: Mr Paul Chor
 
 ## Netlify
 
+Ensure that the repo only has one project. The root must contain package.json 
+
+Go to netlify.com click on "New site from Git".
+
+Select "GitHub"
+
+After authorization, search repo and select the repo
 # Technologies
 In this application JSX is used to structure the content, CSS3 and Bootstrap for styling and JavaScript to process data.
 
@@ -267,6 +453,11 @@ Others,
 * wax-on
 * knex
 * express
+* connect-flash
+* db-migrate-mysql
+* db-migrate-pg
+* pg
+
  
 # Acknowledgments
 * Mr Paul Chor - For all the countless suggestions and help
