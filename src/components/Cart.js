@@ -88,7 +88,6 @@ export default function Cart() {
     const deleteItem = async (e) => {
         let userId = localStorage.getItem("id")
         let response = await axios.get(`${baseUrl}/api/cart/${userId}/${e.target.name}/remove`)
-        console.log(response)
         // Get index
         const teaIndex = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
         // Clone state
@@ -119,7 +118,7 @@ export default function Cart() {
                                 {p.quantity}
                                 <button className="cart-update-qty ml-2" onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
                             </div>
-                            <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i className="fas fa-trash"></i></button>
+                            <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i class="far fa-times-circle"></i></button>
                             <div className="cart-indi-cost">
                                 <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
                             </div>

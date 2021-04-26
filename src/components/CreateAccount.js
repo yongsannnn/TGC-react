@@ -125,7 +125,7 @@ export default function CreateAccount() {
                                         history.goBack("/")
                                     } else {
                                         setRegisterError(true)
-                                        console.log(response.data)
+                                        // console.log(response.data)
                                     }
                                 }
                             }

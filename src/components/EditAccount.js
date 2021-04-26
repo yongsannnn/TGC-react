@@ -108,7 +108,7 @@ export default function EditAccount() {
                                             if (response.data === "Password Updated") {
                                                 history.push("/")
                                             } else {
-                                                console.log(response.data)
+                                                // console.log(response.data)
                                             }
                                         }
                                     }
@@ -142,7 +142,7 @@ export default function EditAccount() {
                                             if (response.data === "Address Updated") {
                                                 history.push("/")
                                             } else {
-                                                console.log(response.data)
+                                                // console.log(response.data)
                                             }
                                         }
                                     }

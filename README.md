@@ -11,8 +11,8 @@ As a **developer** the objectives of this project are (Site owner's goal):
 * Create a single page application using React Hooks and use HTTP requests to consume endpoints written specifically for it. 
 
 This application serve the following purpose (User's Goal):
-* Allow users to search, read and purchase product.
-* Vendor to conduct CRUD on product and orders.
+* Allow users to search, read and purchase high-grade tea.
+* Vendor to conduct CRUD on tea and orders.
 
 
 
@@ -23,10 +23,10 @@ Url to live site:
 
 
 # Defining the Project
-The purpose of this website is to build a fullstack application that allow users to read and purchase products. For vendor to conduct CRUD on the listed products and orders. 
+The purpose of this website is to build a fullstack application that allow users to read and purchase tea. For vendor to conduct CRUD on the listed tea and orders. 
 
 
-Tea Empire aims to provide a platform for users to read, compare and purchase high-grade tea across different brands. 
+Tea Empire aims to provide a platform for tea enthusiast aged 20-50 to read, compare and purchase high-grade tea across different brands. 
 
 
 # Strategy
@@ -34,7 +34,7 @@ Tea Empire aims to provide a platform for users to read, compare and purchase hi
 With the primary purpose mentioned above, the website has two primary users. 
 
 1. Customers visiting the website to read and purchase tea.
-2. Vendors managing products and orders in the admin panel. 
+2. Vendors managing teas and orders in the admin panel. 
 
 ## Identifying External Users' Goals
 The users' goal here is to get the neccessary information related to the tea. 
@@ -74,11 +74,11 @@ SOG4. Provide a platform to solve users pain point
 ```
 US01. As a user, I want to look at all the tea, so that I know what are avaiable.
 US02. As a user, I want to search for a tea, so that I know if it exist in the database.
-US03. As a user, I want to see the details of the tea, so that I know if this is a product that I want. 
-US04. As a user, I want to know buy the product, so that I can enjoy the tea. 
+US03. As a user, I want to see the details of the tea, so that I know if this is a tea that I want. 
+US04. As a user, I want to know buy the tea, so that I can enjoy the tea. 
 US05. As a user, I want to add the tea into my cart, so that I can purchase the item.  
 US06. As a user, I want to see all my previous order, so that I can refer to my past purchase. 
-US07. As a vendor, I want to create/update/delete the product, so that product are kept to date.
+US07. As a vendor, I want to create/update/delete the tea, so that tea are kept to date.
 US08. As a vendor, I want to all orders made by all customer, so that I can know which orders require handling. 
 ```
 

@@ -9,7 +9,6 @@ const baseUrl = config.baseUrl
 export default function IndividualProduct() {
     let { tea_id } = useParams();
     let location = useLocation();
-    console.log(location)
     const history = useHistory();
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -28,6 +27,7 @@ export default function IndividualProduct() {
     const [flavour, setFlavour] = useState([])
     const [ingredient, setIngredient] = useState("")
     const [noti, setNoti] = useState(false)
+    const [notLoggedIn, setNotLoggedIn] = useState(false)
 
     useEffect(() => {
         const fetch = async () => {
@@ -85,30 +85,32 @@ export default function IndividualProduct() {
                                     <h4 className="indi-table-details">Steeping Instructions</h4>
                                     <div className="pr-5">
                                         <table className="table">
-                                            <tr className="indi-table-details">
-                                                <td>
-                                                    <i className="fas fa-tint mr-2"></i> WATER TEMPERATURE
-                                            </td>
-                                                <td>
-                                                    {waterTemp} °C
-                                            </td>
-                                            </tr>
-                                            <tr className="indi-table-details">
-                                                <td>
-                                                    <i className="fas fa-hourglass-half mr-2"></i> STEEP TIME
-                                            </td>
-                                                <td>
-                                                    {steepTime}
+                                            <tbody>
+                                                <tr className="indi-table-details">
+                                                    <td>
+                                                        <i className="fas fa-tint mr-2"></i> WATER TEMPERATURE
                                                 </td>
-                                            </tr>
-                                            <tr className="indi-table-details">
-                                                <td >
-                                                    <i className="fas fa-mug-hot mr-2"></i>SERVING
-                                            </td>
-                                                <td>
-                                                    {serving}
+                                                    <td>
+                                                        {waterTemp} °C
                                                 </td>
-                                            </tr>
+                                                </tr>
+                                                <tr className="indi-table-details">
+                                                    <td>
+                                                        <i className="fas fa-hourglass-half mr-2"></i> STEEP TIME
+                                                </td>
+                                                    <td>
+                                                        {steepTime}
+                                                    </td>
+                                                </tr>
+                                                <tr className="indi-table-details">
+                                                    <td >
+                                                        <i className="fas fa-mug-hot mr-2"></i>SERVING
+                                                </td>
+                                                    <td>
+                                                        {serving}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -116,30 +118,32 @@ export default function IndividualProduct() {
                                     <h4>Tea Origin</h4>
                                     <div className="pr-5">
                                         <table className="table">
-                                            <tr className="indi-table-details">
-                                                <td>
-                                                    BRAND
-                                            </td>
-                                                <td>
-                                                    {brand}
+                                            <tbody>
+                                                <tr className="indi-table-details">
+                                                    <td>
+                                                        BRAND
                                                 </td>
-                                            </tr>
-                                            <tr className="indi-table-details">
-                                                <td>
-                                                    PACKING
-                                            </td>
-                                                <td>
-                                                    {packing}
+                                                    <td>
+                                                        {brand}
+                                                    </td>
+                                                </tr>
+                                                <tr className="indi-table-details">
+                                                    <td>
+                                                        PACKING
                                                 </td>
-                                            </tr>
-                                            <tr className="indi-table-details">
-                                                <td>
-                                                    ORIGIN
-                                            </td>
-                                                <td>
-                                                    {origin}
+                                                    <td>
+                                                        {packing}
+                                                    </td>
+                                                </tr>
+                                                <tr className="indi-table-details">
+                                                    <td>
+                                                        ORIGIN
                                                 </td>
-                                            </tr>
+                                                    <td>
+                                                        {origin}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -152,20 +156,26 @@ export default function IndividualProduct() {
                                         // If user is logged in, push item into his cart
                                         let user_id = localStorage.getItem("id")
                                         await axios.get(baseUrl + "/api/cart/" + user_id + "/" + tea_id + "/add")
+                                        setNoti(true)
+                                        setTimeout(() => {
+                                            setNoti(false)
+                                        }, 2000)
                                     } else {
                                         // if user is not logged in, send him to login page first. 
-                                        history.push("/login")
-
+                                        setNotLoggedIn(true)
+                                        setTimeout(() => {
+                                            setNotLoggedIn(false)
+                                            history.push("/login")
+                                        }, 2000)
                                     }
-                                    setNoti(true)
-                                    setTimeout(() => {
-                                        setNoti(false)
-                                    }, 2000)
                                 }
                             }>Add To Cart - ${cost.toFixed(2)}</button>
-                            <p className="mt-2" style={{
+                            <p className="mt-2 warning-text" style={{
                                 display: noti === true ? "block" : "none"
                             }}>Item has been added to your cart</p>
+                            <p className="mt-2 warning-text " style={{
+                                display: notLoggedIn === true ? "block" : "none"
+                            }}>Please login before adding item into cart. Redirecting to login page...</p>
                         </div>
                     </div>
 
