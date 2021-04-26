@@ -19,8 +19,6 @@ This application serve the following purpose (User's Goal):
 ## Access
 Url to live site: 
 
-![Display sample on different devices upon loading](images/display-sample.png)
-
 
 # Defining the Project
 The purpose of this website is to build a fullstack application that allow users to read and purchase tea. For vendor to conduct CRUD on the listed tea and orders. 
@@ -155,3 +153,124 @@ This page will focus on showing all the relevant information of the Tea and Orde
 This page will gather input relevant information of the recipe from the vendor. 
 
 ![Skeleton Design for Create Tea Page](images/skeleton-crud.png)
+
+## Site Map
+
+![Site Map For Vendor](images/site-map-vendor.png)
+
+![Site Map For Consumer](images/site-map-consumer.png)
+
+## Navigation
+Navigation between sites can be done by using the nav bar provided. 
+
+
+# Surface
+## Color
+Most of the page is left white. Main purpose of this is to ensure readability and providing good contrast between the background and the images. 
+
+Gold can be seen in the call to action buttons because it is often related to elegant and a feel of high-quality. 
+
+Contrast of grey is used to provide seperation of white spacing. 
+
+
+## Fonts
+[Cormorant Garamond](https://fonts.google.com/specimen/Cormorant+Garamond?query=cormorant) font are used for the Brand name and title. It is a hand-drawn Catharsis Font which aim to provide a exquisite and elegant appearance. 
+
+[Lato](https://fonts.google.com/specimen/Lato?query=Lato) font are used to inherit all of the body text in the webpage. 
+
+The font is a sans serif typeface. The semi-rounded details of the letters give Lato a feeling of warmth, while the strong structure provides stability and seriousness. 
+
+## Features
+
+## Form-validation
+Apart from third party/technologies mentioned below. I have used conditional rendering and flags to check if form inputs by the user are in the acceptable format. The conditional rendering will show the user which fields are unacceptable and provide context. 
+
+
+# Testing
+
+
+## Validating Markup
+All pages validated by validating service  [W3C Markup Validator](https://validator.w3.org/).
+```
+Document checking completed. No errors or warnings to show.
+```
+
+# Deployment
+Ensured all changes has been save and pushed to GitHub.
+
+If you would like to deploy or fork this application you can visit https://github.com/yongsannnn/TGC-react.  There is only one branch to this application. 
+
+Tea Empire is deployed to Netlify. 
+
+Data sets are store in Heroku and are called automatically. It may take up to thirty seconds for data set to be loaded. 
+
+Apart from React default package. Ensure you have the following depencencies. 
+```
+axios
+bootstrap
+react-router-dom
+```
+
+## Heroku 
+
+Credits: Mr Paul Chor
+
+## Netlify
+
+# Technologies
+In this application JSX is used to structure the content, CSS3 and Bootstrap for styling and JavaScript to process data.
+
+Gitpod is used as the main coding platform. 
+
+Several other tools that played a role in this application:
+
+For API,
+* [Axios](https://github.com/axios/axios)
+
+For styling,
+* [Bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+
+For deployment,
+* [Github](https://github.com/)
+* [Heroku](https://www.heroku.com/)
+* [Netlify](https://netlify.app/)
+
+For icons,
+* [Flaticon](https://www.flaticon.com/)
+* [FontAwesome](https://fontawesome.com/)
+
+For Form Helper,
+* [Caolan-Forms](https://github.com/caolan/forms)
+
+For ORM,
+* [Bookshelf](https://bookshelfjs.org/)
+
+For Database migration,
+* [Db-migrate](https://github.com/db-migrate)
+
+For images of tea and layout inspiration,
+* [Art-Of-Tea](https://www.artoftea.com/)
+
+For payment,
+* [Stripe](https://stripe.com/en-sg)
+
+For image processing and storage,
+* [Uploadcare](https://uploadcare.com/)
+
+Others,
+
+* CORS
+* csurf
+* jsonwebtoken
+* select2
+* hbs
+* wax-on
+* knex
+* express
+ 
+# Acknowledgments
+* Mr Paul Chor - For all the countless suggestions and help
+* Mr Ace Liang - For sharing processing information tips
+* Mr Benjamin Png - For your continuous assitance and brainstorming of ideas 
+
+I do not own any rights to the images, all rights belongs to their respective creator. This is a personal project. 
