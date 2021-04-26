@@ -21,6 +21,11 @@ export default function EditAccount() {
     const [newAddress, setNewAddress] = useState("")
     const [checkUser, setCheckUser] = useState(false)
     const [addressLength, setAddressLength] = useState(false)
+    const [passwordShort, setPasswordShort] = useState(false)
+    const [addressShort, setAddressShort] = useState(false)
+    const [addressNotUpdated, setAddressNotUpdated] = useState(false)
+    const [passwordNotUpdated, setPasswordNotUpdated] = useState(false)
+    
     useEffect(() => {
         // Check if user_id and local storage id is the same. If same then allow user to proceed looking at the page. 
         if (user_id) {
@@ -96,11 +101,15 @@ export default function EditAccount() {
                                 <input className="login-input" type="password" placeholder="New Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                                 <input className="login-input" type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
                                 <p className="warning-text" style={{ display: isPasswordSame === true ? "block" : "none" }}>*Password does not match. </p>
+                                <p className="warning-text" style={{ display: passwordShort === true ? "block" : "none" }}>*Password is too short. </p>
+                                <p className="warning-text" style={{ display: passwordNotUpdated === true ? "block" : "none" }}>*Password is not updated. Please try again later. </p>
 
                                 <button className="cta" onClick={
                                     async () => {
                                         if (password !== confirmPassword) {
                                             setIsPasswordSame(true)
+                                        } else if (password.length < 6){
+                                            setPasswordShort(true)
                                         } else {
                                             const response = await axios.post(baseUrl + "/api/users/edit/" + user_id, {
                                                 "password": password
@@ -108,7 +117,7 @@ export default function EditAccount() {
                                             if (response.data === "Password Updated") {
                                                 history.push("/")
                                             } else {
-                                                // console.log(response.data)
+                                                setPasswordNotUpdated(true)
                                             }
                                         }
                                     }
@@ -130,11 +139,15 @@ export default function EditAccount() {
                             }}>
                                 <input className="login-input" type="text" placeholder="New Address" name="newAddress" onChange={(e) => setNewAddress(e.target.value)}></input>
                                 <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address is too long. Length must be shorter than 255 characters.</p>
+                                <p className="warning-text" style={{ display: addressShort === true ? "block" : "none" }}>*Address is too short. Length must be longer than 10 characters.</p>
+                                <p className="warning-text" style={{ display: addressNotUpdated === true ? "block" : "none" }}>*Address cannot be updated. Please try again later.</p>
                                 
                                 <button className="cta" onClick={
                                     async () => {
                                         if (newAddress.length > 255){
                                             setAddressLength(true)
+                                        } else if (newAddress.length < 10){
+                                            setAddressShort(true)
                                         } else {
                                             const response = await axios.post(baseUrl + "/api/users/edit/" + user_id, {
                                                 "address": newAddress
@@ -142,7 +155,7 @@ export default function EditAccount() {
                                             if (response.data === "Address Updated") {
                                                 history.push("/")
                                             } else {
-                                                // console.log(response.data)
+                                                setAddressNotUpdated(true)
                                             }
                                         }
                                     }
