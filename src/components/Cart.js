@@ -87,7 +87,7 @@ export default function Cart() {
 
     const deleteItem = async (e) => {
         let userId = localStorage.getItem("id")
-        let response = await axios.get(`${baseUrl}/api/cart/${userId}/${e.target.name}/remove`)
+        await axios.get(`${baseUrl}/api/cart/${userId}/${e.target.name}/remove`)
         // Get index
         const teaIndex = cartItem.findIndex(p => p.tea.id === parseInt(e.target.name))
         // Clone state

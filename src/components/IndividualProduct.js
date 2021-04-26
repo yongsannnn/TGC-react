@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react"
 import config from "../config"
 import axios from "axios"
 import { useParams, useHistory } from "react-router-dom"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 
 export default function IndividualProduct() {
     let { tea_id } = useParams();
-    let location = useLocation();
+    // let location = useLocation();
     const history = useHistory();
 
     const [isLoaded, setIsLoaded] = useState(false)
