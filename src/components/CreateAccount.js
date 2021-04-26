@@ -14,11 +14,14 @@ export default function CreateAccount() {
     const [date, setDate] = useState("")
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
+    const [isPasswordShort, setIsPasswordShort] = useState(false)
     const [isPasswordSame, setIsPasswordSame] = useState(false)
     const [isNameLong, setIsNameLong] = useState(false)
+    const [isNameShort, setIsNameShort] = useState(false)
     const [isEmailFormat, setIsEmailFormat] = useState(false)
     const [isDOBEmpty, setIsDOBEmpty] = useState(false)
     const [isPhoneEmpty, setIsPhoneEmpty] = useState(false)
+    const [isAddressShort, setIsAddressShort] = useState(false)
     const [addressLength, setAddressLength] = useState(false)
     const [registerError, setRegisterError] = useState(false)
 
@@ -43,11 +46,14 @@ export default function CreateAccount() {
                         <input type="text" className="login-input" placeholder="Address" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
                     </div>
                     <p className="warning-text" style={{ display: isNameLong === true ? "block" : "none" }}>*Name is too long. Length must be shorter than 45 characters. </p>
+                    <p className="warning-text" style={{ display: isNameShort === true ? "block" : "none" }}>*Name is too short. Length must be at least 3 characters. </p>
                     <p className="warning-text" style={{ display: isEmailFormat === true ? "block" : "none" }}>*Invalid Email format.</p>
+                    <p className="warning-text" style={{ display: isPasswordShort === true ? "block" : "none" }}>*Password is too short. </p>
                     <p className="warning-text" style={{ display: isPasswordSame === true ? "block" : "none" }}>*Password does not match. </p>
                     <p className="warning-text" style={{ display: isDOBEmpty === true ? "block" : "none" }}>*Date Of Birth is empty. </p>
                     <p className="warning-text" style={{ display: isPhoneEmpty === true ? "block" : "none" }}>*Phone Number is empty. </p>
                     <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address is too long. Length must be shorter than 255 characters. </p>
+                    <p className="warning-text" style={{ display: isAddressShort === true ? "block" : "none" }}>*Address is too short. Length must be at least 10 characters. </p>
 
 
 
@@ -60,6 +66,18 @@ export default function CreateAccount() {
                                 } else {
                                     setIsNameLong(false)
                                 }
+                                if (name.length < 3) {
+                                    setIsNameShort(true)
+                                } else {
+                                    setIsNameShort(false)
+                                }
+
+                                if (password.length < 6){
+                                    setIsPasswordShort(true)
+                                } else {
+                                    setIsPasswordShort(false)
+                                }
+
                                 if (validateEmail(email) === false) {
                                     setIsEmailFormat(true)
                                 } else {
@@ -87,8 +105,13 @@ export default function CreateAccount() {
                                 } else {
                                     setAddressLength(false)
                                 }
+                                if (address.length < 10) {
+                                    setIsAddressShort(true)
+                                } else {
+                                    setIsAddressShort(false)
+                                }
 
-                                 if (isNameLong === false && isEmailFormat === false && isPasswordSame === false && isDOBEmpty === false && isPhoneEmpty === false && addressLength === false) {
+                                if (isNameLong === false && isEmailFormat === false && isPasswordSame === false && isDOBEmpty === false && isPhoneEmpty === false && addressLength === false && isNameShort === false && isAddressShort === false && isPasswordShort === false) {
                                     // Send data to url when all flag is false
                                     const response = await axios.post(baseUrl + "/api/users/register", {
                                         "name": name,
