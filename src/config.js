@@ -1,5 +1,5 @@
 const config = {
-    "baseUrl":"https://gys-tgc11-tea-empire.herokuapp.com/"
+    "baseUrl":"https://gys-tgc11-tea-empire.herokuapp.com"
 
 }
 
