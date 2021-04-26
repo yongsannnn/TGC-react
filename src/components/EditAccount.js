@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import config from "../config"
 import axios from "axios"
-import { useHistory } from "react-router-dom"
+// import { useHistory } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 export default function EditAccount() {
     const user_id = localStorage.getItem("id")
-    const history = useHistory();
+    // const history = useHistory();
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -25,7 +25,8 @@ export default function EditAccount() {
     const [addressShort, setAddressShort] = useState(false)
     const [addressNotUpdated, setAddressNotUpdated] = useState(false)
     const [passwordNotUpdated, setPasswordNotUpdated] = useState(false)
-    
+    const [passwordUpdated, setPasswordUpdated] = useState(false)
+    const [addressUpdated, setAddressUpdated] = useState(false)
     useEffect(() => {
         // Check if user_id and local storage id is the same. If same then allow user to proceed looking at the page. 
         if (user_id) {
@@ -48,7 +49,7 @@ export default function EditAccount() {
 
     if (isLoaded === false) {
         return (
-            <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading"/>
+            <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading" />
         )
     } else if (isLoaded === true && checkUser === false) {
         return (
@@ -103,19 +104,27 @@ export default function EditAccount() {
                                 <p className="warning-text" style={{ display: isPasswordSame === true ? "block" : "none" }}>*Password does not match. </p>
                                 <p className="warning-text" style={{ display: passwordShort === true ? "block" : "none" }}>*Password is too short. </p>
                                 <p className="warning-text" style={{ display: passwordNotUpdated === true ? "block" : "none" }}>*Password is not updated. Please try again later. </p>
+                                <p className="warning-text" style={{ display: passwordUpdated === true ? "block" : "none" }}>*Password has been updated.</p>
 
                                 <button className="cta" onClick={
                                     async () => {
                                         if (password !== confirmPassword) {
                                             setIsPasswordSame(true)
-                                        } else if (password.length < 6){
+                                        } else if (password.length < 6) {
                                             setPasswordShort(true)
                                         } else {
                                             const response = await axios.post(baseUrl + "/api/users/edit/" + user_id, {
                                                 "password": password
                                             })
                                             if (response.data === "Password Updated") {
-                                                history.push("/")
+                                                setIsPasswordSame(false)
+                                                setPasswordShort(false)
+                                                setPasswordNotUpdated(false)
+                                                setPassword("")
+                                                setConfirmPassword("")
+                                                setTimeout(() => {
+                                                    setPasswordUpdated(true)
+                                                }, 2000)
                                             } else {
                                                 setPasswordNotUpdated(true)
                                             }
@@ -137,23 +146,32 @@ export default function EditAccount() {
                             <div style={{
                                 display: changeAddress === true ? "block" : "none"
                             }}>
-                                <input className="login-input" type="text" placeholder="New Address" name="newAddress" onChange={(e) => setNewAddress(e.target.value)}></input>
+                                <input className="login-input" type="text" placeholder="New Address" name="newAddress" value={newAddress} onChange={(e) => setNewAddress(e.target.value)}></input>
                                 <p className="warning-text" style={{ display: addressLength === true ? "block" : "none" }}>*Address is too long. Length must be shorter than 255 characters.</p>
                                 <p className="warning-text" style={{ display: addressShort === true ? "block" : "none" }}>*Address is too short. Length must be longer than 10 characters.</p>
                                 <p className="warning-text" style={{ display: addressNotUpdated === true ? "block" : "none" }}>*Address cannot be updated. Please try again later.</p>
-                                
+                                <p className="warning-text" style={{ display: addressUpdated === true ? "block" : "none" }}>*Address has been updated.</p>
+
                                 <button className="cta" onClick={
                                     async () => {
-                                        if (newAddress.length > 255){
+                                        if (newAddress.length > 255) {
                                             setAddressLength(true)
-                                        } else if (newAddress.length < 10){
+                                        } else if (newAddress.length < 10) {
                                             setAddressShort(true)
                                         } else {
                                             const response = await axios.post(baseUrl + "/api/users/edit/" + user_id, {
                                                 "address": newAddress
                                             })
                                             if (response.data === "Address Updated") {
-                                                history.push("/")
+                                                setAddressLength(false)
+                                                setAddressShort(false)
+                                                setAddressNotUpdated(false)
+                                                setAddress(newAddress)
+                                                setNewAddress("")
+
+                                                setTimeout(()=>{
+                                                    setAddressUpdated(true)
+                                                }, 2000)
                                             } else {
                                                 setAddressNotUpdated(true)
                                             }
