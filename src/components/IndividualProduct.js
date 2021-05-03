@@ -67,12 +67,12 @@ export default function IndividualProduct() {
                      / {name}
                     </div>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6">
                             <p className="indi-img-container" style={{
                                 backgroundImage: `url(${image})`
                             }}></p>
                         </div>
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6">
                             <h1 className="mb-4 indi-title">{name}</h1>
                             <p className="indi-flavour">TASTING NOTE: {flavour.map(p => p.name).join(", ")}</p>
                             <p>{description}</p>
@@ -81,9 +81,9 @@ export default function IndividualProduct() {
                             <p className="indi-spacing"></p>
 
                             <div className="row indi-table-container">
-                                <div className="col-6">
+                                <div className="col-12 col-xl-6 col-md-6">
                                     <h4 className="indi-table-details">Steeping Instructions</h4>
-                                    <div className="pr-5">
+                                    <div className="pr-5 pr-lg-0">
                                         <table className="table">
                                             <tbody>
                                                 <tr className="indi-table-details">
@@ -114,9 +114,9 @@ export default function IndividualProduct() {
                                         </table>
                                     </div>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-xl-6 col-md-6">
                                     <h4>Tea Origin</h4>
-                                    <div className="pr-5">
+                                    <div className="pr-5 pr-lg-0">
                                         <table className="table">
                                             <tbody>
                                                 <tr className="indi-table-details">
@@ -149,7 +149,7 @@ export default function IndividualProduct() {
                                 </div>
                             </div>
                             <p className="indi-spacing"></p>
-                            <button className="indi-add-to-cart" onClick={
+                            <button className="indi-add-to-cart mb-3" onClick={
                                 async () => {
                                     // check if user is logged in
                                     if (localStorage.getItem("id") !== null) {
@@ -170,10 +170,10 @@ export default function IndividualProduct() {
                                     }
                                 }
                             }>Add To Cart - ${cost.toFixed(2)}</button>
-                            <p className="mt-2 warning-text" style={{
+                            <p className="mt-2 warning-text mb-2" style={{
                                 display: noti === true ? "block" : "none"
                             }}>Item has been added to your cart</p>
-                            <p className="mt-2 warning-text " style={{
+                            <p className="mt-2 warning-text mb-2 " style={{
                                 display: notLoggedIn === true ? "block" : "none"
                             }}>Please login before adding item into cart. Redirecting to login page...</p>
                         </div>

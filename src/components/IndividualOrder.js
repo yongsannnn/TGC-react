@@ -90,12 +90,12 @@ export default function IndividualOrder() {
             lst.push(
                 <React.Fragment>
                     <div className="row mt-2 mb-2" key={i.id}>
-                        <div className="col-3">
+                        <div className="col-12 col-md-4 col-lg-3">
                             <div className="product-img-container" style={{
                                 backgroundImage: `url(${i.tea.image})`
                             }} ></div>
                         </div>
-                        <div className="col-9">
+                        <div className="col-12 col-md-8 col-lg-9">
                             <Link className="order-indi-title" to={"/products/" + i.tea.id}>{i.tea.name}</Link>
                             <p className="cart-indi-des">Quantity: {i.quantity}</p>
                             <p className="cart-indi-des">{i.tea.description}</p>
@@ -117,7 +117,7 @@ export default function IndividualOrder() {
 
     if (isLoaded === false) {
         return (
-             <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading"/>
+            <img className="loading" src="https://ucarecdn.com/68a0fdc0-6074-4492-ba08-6ace1f689b6d/200.gif" alt="loading" />
         )
     } else {
         return (

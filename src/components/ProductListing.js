@@ -55,7 +55,7 @@ export function ProductListing() {
         return (
             <React.Fragment>
                 <div className="row">
-                    <div className="col-2">
+                    <div className="col-12 col-lg-3 col-xl-2">
                         <div className="filter-header mb-2">
                             <h3>Filter</h3>
                             <button className="reset-btn" onClick={resetQuery}><i class="fas fa-sync-alt"></i></button>
@@ -74,9 +74,9 @@ export function ProductListing() {
                             <option value="4">Pu-Erh Tea</option>
                             <option value="5">White Tea</option>
                         </select>
-                        <button type="submit" className="cta" onClick={searchQuery}>Search</button>
+                        <button type="submit" className="cta search-btn" onClick={searchQuery}>Search</button>
                     </div>
-                    <div className="col-10">
+                    <div className="col-12 col-lg-9 col-xl-10">
                         <h3>Product</h3>
                         <div className="product-img" style={{
                             backgroundImage: `url(http://cdn.shopify.com/s/files/1/0311/4398/5197/collections/AOT-Loose-Leaf-Header-Banner_1800x.jpg?v=1586118019)`
@@ -87,7 +87,7 @@ export function ProductListing() {
                         <div className="mt-4 row">
                             {
                                 products.map(p =>
-                                    <div className="col-4 p-1 mb-3" key={p.id}>
+                                    <div className="col-12 col-md-6 col-lg-4 p-1 mb-3" key={p.id}>
                                         <div className="product-indi-img" key={p.id} style={{ backgroundImage: `url(${p.image})` }}></div>
                                         <div className="login-btn-wrapper">
                                             <Link to={"/products/" + p.id} className="mt-3 product-indi-link">{p.name}</Link>
@@ -103,4 +103,4 @@ export function ProductListing() {
     }
 
 
-} 
+}

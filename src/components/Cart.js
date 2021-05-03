@@ -105,12 +105,12 @@ export default function Cart() {
             lst.push(
                 <React.Fragment>
                     <div className="row mt-2 mb-3" key={p.id}>
-                        <div className="col-3">
+                        <div className="col-12 col-md-4 col-lg-3">
                             <div className="cart-img-container" style={{
                                 backgroundImage: `url(${p.tea.image})`
                             }}></div>
                         </div>
-                        <div className="col-9">
+                        <div className="col-12 col-md-8 col-lg-9">
                             <h3 style={{ color: "#4a4a4a" }}>{p.tea.name}</h3>
                             <p className="cart-indi-des">{p.tea.description}</p>
                             <div className="cart-update-qty-box mb-2">
@@ -127,9 +127,9 @@ export default function Cart() {
                     <p className="grey-line"></p>
                 </React.Fragment>
             ))
-        if (lst[0] === undefined ){
+        if (lst[0] === undefined) {
             lst.push(
-                <div style={{height: "50vh"}}>
+                <div style={{ height: "50vh" }}>
                     No item in cart.
                 </div>
             )
@@ -149,33 +149,6 @@ export default function Cart() {
             <React.Fragment>
                 <div className="page-width" style={{ display: "block" }}>
                     <h1 className="mb-2">My Cart</h1>
-                    {/* {
-                        cartItem.map(p =>
-                            <React.Fragment>
-                                <div className="row mt-2 mb-3" key={p.id}>
-                                    <div className="col-3">
-                                        <div className="cart-img-container" style={{
-                                            backgroundImage: `url(${p.tea.image})`
-                                        }}></div>
-                                    </div>
-                                    <div className="col-9">
-                                        <h3 style={{ color: "#4a4a4a" }}>{p.tea.name}</h3>
-                                        <p className="cart-indi-des">{p.tea.description}</p>
-                                        <div className="cart-update-qty-box mb-2">
-                                            <button className="cart-update-qty mr-2" onClick={decrementQty} name={p.tea.id} value={p.quantity}>-</button>
-                                            {p.quantity}
-                                            <button className="cart-update-qty ml-2" onClick={incrementQty} name={p.tea.id} value={p.quantity}>+</button>
-                                        </div>
-                                        <button className="cart-qty-cta mb-1" onClick={deleteItem} name={p.tea.id}><i className="fas fa-trash"></i></button>
-                                        <div className="cart-indi-cost">
-                                            <p>${(p.tea.cost * p.quantity / 100).toFixed(2)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p className="grey-line"></p>
-                            </React.Fragment>
-                        )
-                    } */}
                     {renderCartItem()}
                     <div className="cart-total-cost">
                         <p> SUBTOTAL:</p>
